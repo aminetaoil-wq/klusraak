@@ -1,0 +1,47 @@
+# Netlify build for the static frontend.
+#
+# Required site env var:
+#   KLUSRAAK_API_BASE = https://<your-fly-app>.fly.dev
+#
+# The build command rewrites frontend/public/js/config.js so the SPA hits
+# the right API host without source edits per environment.
+
+[build]
+  publish = "frontend/public"
+  command = "sh scripts/inject-api-base.sh"
+
+[build.environment]
+  NODE_VERSION = "20"
+
+# index.html must always re-fetch so deploys take effect immediately.
+[[headers]]
+  for = "/index.html"
+  [headers.values]
+    Cache-Control = "no-cache, must-revalidate"
+
+[[headers]]
+  for = "/"
+  [headers.values]
+    Cache-Control = "no-cache, must-revalidate"
+
+# Static assets aren't content-hashed yet, so use a short cache + ETag
+# revalidation rather than max-age=immutable. Five minutes is a reasonable
+# upper bound on how long users may run stale code after a deploy.
+[[headers]]
+  for = "/js/*"
+  [headers.values]
+    Cache-Control = "public, max-age=300, must-revalidate"
+
+[[headers]]
+  for = "/css/*"
+  [headers.values]
+    Cache-Control = "public, max-age=300, must-revalidate"
+
+# Security headers for the whole origin.
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "geolocation=(), microphone=(), camera=()"

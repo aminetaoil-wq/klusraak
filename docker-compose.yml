@@ -1,0 +1,110 @@
+# Local dev stack: Postgres + Redis + API + worker.
+# The frontend is static — serve it with any static server (e.g.
+# `python3 -m http.server 5173` from frontend/public).
+
+services:
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: klusraak
+      POSTGRES_PASSWORD: klusraak
+      POSTGRES_DB: klusraak
+    ports:
+      - '5432:5432'
+    volumes:
+      - klusraak_db:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U klusraak -d klusraak']
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  redis:
+    image: redis:7-alpine
+    restart: unless-stopped
+    command: ['redis-server', '--appendonly', 'yes']
+    ports:
+      - '6379:6379'
+    volumes:
+      - klusraak_redis:/data
+    healthcheck:
+      test: ['CMD', 'redis-cli', 'ping']
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  # One-shot migrator. `api` and `worker` wait for it to exit 0.
+  migrate:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    command: ['sh', '-c', 'npx prisma migrate deploy']
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgresql://klusraak:klusraak@db:5432/klusraak?schema=public
+      # No pooler in front of local Postgres, so direct URL == pooled URL.
+      DATABASE_DIRECT_URL: postgresql://klusraak:klusraak@db:5432/klusraak?schema=public
+    restart: 'no'
+
+  api:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      migrate:
+        condition: service_completed_successfully
+    environment:
+      NODE_ENV: production
+      PORT: 4000
+      LOG_LEVEL: info
+      CORS_ORIGIN: http://localhost:5173,http://localhost:8080
+      DATABASE_URL: postgresql://klusraak:klusraak@db:5432/klusraak?schema=public
+      DATABASE_DIRECT_URL: postgresql://klusraak:klusraak@db:5432/klusraak?schema=public
+      REDIS_URL: redis://redis:6379
+      JWT_ACCESS_SECRET: dev-access-secret-change-in-production
+      JWT_REFRESH_SECRET: dev-refresh-secret-change-in-production
+      JWT_ACCESS_TTL: 900
+      JWT_REFRESH_TTL: 2592000
+    ports:
+      - '4000:4000'
+    healthcheck:
+      test: ['CMD', 'wget', '-q', '-O-', 'http://localhost:4000/ready']
+      interval: 10s
+      timeout: 3s
+      retries: 5
+      start_period: 10s
+
+  worker:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    command: ['node', 'dist/worker.js']
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      migrate:
+        condition: service_completed_successfully
+    environment:
+      NODE_ENV: production
+      LOG_LEVEL: info
+      DATABASE_URL: postgresql://klusraak:klusraak@db:5432/klusraak?schema=public
+      DATABASE_DIRECT_URL: postgresql://klusraak:klusraak@db:5432/klusraak?schema=public
+      REDIS_URL: redis://redis:6379
+      JWT_ACCESS_SECRET: dev-access-secret-change-in-production
+      JWT_REFRESH_SECRET: dev-refresh-secret-change-in-production
+      WORKER_CONCURRENCY: 5
+
+volumes:
+  klusraak_db:
+  klusraak_redis:

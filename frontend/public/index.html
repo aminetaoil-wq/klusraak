@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#07080c" media="(prefers-color-scheme: dark)" />
+  <meta name="theme-color" content="#FAFBFC" media="(prefers-color-scheme: light)" />
+  <meta name="description" content="Klusraak — vind binnen 30 minuten een vakman in jouw buurt voor klussen, onderhoud en reparaties. Snel, transparant, betrouwbaar." />
+  <title>Klusraak — vakmannen op jouw moment</title>
+
+  <link rel="icon" type="image/svg+xml" href="assets/logomark.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500;600&display=swap" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Direct naar inhoud</a>
+
+  <!-- Live region for screen-reader route announcements -->
+  <div id="route-live" class="visually-hidden" aria-live="polite" aria-atomic="true"></div>
+
+  <!-- Snackbar -->
+  <div id="snackbar" role="status" aria-live="polite" aria-atomic="true"></div>
+
+  <!-- Reusable logo template (referenced via <use>-style copy by JS later) -->
+  <template id="tpl-logomark">
+    <svg class="logomark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" aria-hidden="true">
+      <defs>
+        <linearGradient id="kg" x1="8" y1="8" x2="56" y2="56" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stop-color="#6b75ff"/><stop offset="50%" stop-color="#8b5cf6"/><stop offset="100%" stop-color="#38d4ff"/>
+        </linearGradient>
+        <linearGradient id="kgs" x1="0" y1="0" x2="0" y2="64" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stop-color="#ffffff" stop-opacity="0.18"/><stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+        </linearGradient>
+      </defs>
+      <rect x="2" y="2" width="60" height="60" rx="16" fill="#0c0e14" stroke="url(#kg)" stroke-width="1.5"/>
+      <rect x="2" y="2" width="60" height="60" rx="16" fill="url(#kgs)"/>
+      <path d="M19 16 L19 48 M19 32 L34 16 M19 32 L34 48" stroke="url(#kg)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+      <circle cx="44" cy="32" r="2.5" fill="#38d4ff"/>
+    </svg>
+  </template>
+
+  <!-- ============================================================
+       HOME (public landing)
+       ============================================================ -->
+  <section id="sc-home" class="sc on" aria-labelledby="home-title">
+    <header class="app-header">
+      <div class="app-header__inner">
+        <button type="button" class="logo" data-go="sc-home" aria-label="Klusraak — naar home">
+          <svg class="logomark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" aria-hidden="true"><defs><linearGradient id="kgh1" x1="8" y1="8" x2="56" y2="56" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#6b75ff"/><stop offset="50%" stop-color="#8b5cf6"/><stop offset="100%" stop-color="#38d4ff"/></linearGradient></defs><rect x="2" y="2" width="60" height="60" rx="16" fill="#0c0e14" stroke="url(#kgh1)" stroke-width="1.5"/><path d="M19 16 L19 48 M19 32 L34 16 M19 32 L34 48" stroke="url(#kgh1)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><circle cx="44" cy="32" r="2.5" fill="#38d4ff"/></svg>
+          <span class="logo-word">klusraak</span>
+        </button>
+        <nav class="nav-links" aria-label="Hoofdnavigatie">
+          <button type="button" class="nav-link" data-go="sc-services">Diensten</button>
+          <button type="button" class="nav-link" data-scroll-to="#home-faq">Veelgestelde vragen</button>
+          <button type="button" class="nav-link" data-action="open-register-craftsman">Word vakman</button>
+        </nav>
+        <div class="nav-right">
+          <button type="button" class="theme-toggle" data-action="toggle-theme" aria-label="Wissel naar licht thema" aria-pressed="false"><i data-lucide="moon"></i></button>
+          <button type="button" class="btn btn-primary btn-sm" data-action="open-login">Inloggen</button>
+        </div>
+      </div>
+    </header>
+
+    <main id="main">
+      <div class="hbg">
+        <div class="ctr fu">
+          <div class="hero-intro">
+            <span class="badge bo"><i data-lucide="sparkles" style="width:12px;height:12px;"></i>Gemiddeld binnen 30 min iemand</span>
+            <h1 id="home-title" class="h1 mt12" tabindex="-1">De snelste weg naar de juiste vakman.</h1>
+            <p class="lead mt12">Welke kant op? Kies hieronder hoe jij Klusraak gaat gebruiken.</p>
+          </div>
+
+          <div class="paths-grid mt32" role="group" aria-label="Kies je rol">
+            <article class="path-card path-card--client">
+              <div class="path-card__head">
+                <div class="path-card__icon" aria-hidden="true"><i data-lucide="briefcase"></i></div>
+                <div>
+                  <span class="eyebrow">Voor klanten</span>
+                  <h2 class="h3">Ik heb een klus</h2>
+                </div>
+              </div>
+              <p class="sm">Beschrijf wat er moet gebeuren — een vakman in jouw buurt pakt 'm meestal binnen 30 minuten op.</p>
+              <ol class="path-card__steps">
+                <li><span class="path-card__num">1</span><div><strong>Plaats je klus</strong><span class="xs">Categorie, beschrijving, stad — gratis</span></div></li>
+                <li><span class="path-card__num">2</span><div><strong>Vakman accepteert</strong><span class="xs">Eerste beschikbare in de buurt</span></div></li>
+                <li><span class="path-card__num">3</span><div><strong>Klaar &amp; betalen</strong><span class="xs">Beoordeel de vakman, reken veilig af</span></div></li>
+              </ol>
+              <button type="button" class="btn btn-primary btn-full path-card__cta" data-action="open-register-client">
+                Plaats nu een klus
+                <i data-lucide="arrow-right"></i>
+              </button>
+              <p class="path-card__foot xs">Gratis · geen account vooraf nodig om te oriënteren</p>
+            </article>
+
+            <article class="path-card path-card--craftsman">
+              <div class="path-card__head">
+                <div class="path-card__icon path-card__icon--alt" aria-hidden="true"><i data-lucide="hard-hat"></i></div>
+                <div>
+                  <span class="eyebrow">Voor vakmannen</span>
+                  <h2 class="h3">Ik zoek werk</h2>
+                </div>
+              </div>
+              <p class="sm">Open klussen direct in je dashboard. Geen aanbestedingen, geen prijsoorlogen — gewoon "ja" zeggen op werk dat past.</p>
+              <ol class="path-card__steps">
+                <li><span class="path-card__num">1</span><div><strong>Maak een vakman-account</strong><span class="xs">KvK-controle binnen 24 uur</span></div></li>
+                <li><span class="path-card__num">2</span><div><strong>Open klussen in jouw buurt</strong><span class="xs">Filter op categorie en stad</span></div></li>
+                <li><span class="path-card__num">3</span><div><strong>Accepteer met één tik</strong><span class="xs">Plan in, voer uit, ontvang betaling</span></div></li>
+              </ol>
+              <button type="button" class="btn btn-secondary btn-full path-card__cta" data-action="open-register-craftsman">
+                Word vakman
+                <i data-lucide="arrow-right"></i>
+              </button>
+              <p class="path-card__foot xs">Geen abonnement · provisie alleen op afgeronde klussen</p>
+            </article>
+          </div>
+
+          <div class="stat-grid mt32" aria-label="Statistieken">
+            <div class="stat-box">
+              <div class="stat-num" data-counter="12450" data-suffix="+">12.450+</div>
+              <div class="stat-lbl">Klussen</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-num" data-counter="2400" data-suffix="">2.400</div>
+              <div class="stat-lbl">Vakmannen</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-num">4,8 ★</div>
+              <div class="stat-lbl">Gemiddeld</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Service strip -->
+      <section class="ctr" aria-labelledby="services-title">
+        <div class="flex jb ac">
+          <div>
+            <div class="sec-label">Onze diensten</div>
+            <h2 id="services-title" class="h2">Voor elke klus een vakman</h2>
+          </div>
+          <button type="button" class="btn btn-ghost" data-go="sc-services">Alle diensten <i data-lucide="arrow-right"></i></button>
+        </div>
+        <div class="svc-strip" id="home-svc-strip" aria-label="Populaire diensten"></div>
+      </section>
+
+      <!-- FAQ -->
+      <section class="ctr" id="home-faq" aria-labelledby="faq-title">
+        <div class="sec-label">Veelgestelde vragen</div>
+        <h2 id="faq-title" class="h2">Antwoorden binnen handbereik</h2>
+        <div class="faq mt16">
+          <details>
+            <summary>Wat kost het om een klus te plaatsen?</summary>
+            <div class="faq__body">Het plaatsen van een klus is gratis. Je betaalt alleen het tarief dat jij met de vakman afspreekt — Klusraak rekent een kleine servicefee bovenop het bedrag.</div>
+          </details>
+          <details>
+            <summary>Hoe snel reageert er een vakman?</summary>
+            <div class="faq__body">Gemiddeld binnen 30 minuten. Doordat we lokaal matchen kunnen vakmannen in de buurt direct reageren op nieuwe klussen.</div>
+          </details>
+          <details>
+            <summary>Hoe betaal ik veilig?</summary>
+            <div class="faq__body">Betalen kan via iDEAL, Bancontact of creditcard. We houden het bedrag pas vrij wanneer jij bevestigt dat de klus is afgerond.</div>
+          </details>
+          <details>
+            <summary>Hoe word ik vakman op Klusraak?</summary>
+            <div class="faq__body">Maak een vakman-account aan, vul je KvK en specialismes in en wij verifiëren je gegevens. Vaak ben je binnen 24 uur live.</div>
+          </details>
+          <details>
+            <summary>Wat als ik niet tevreden ben?</summary>
+            <div class="faq__body">Geef de vakman feedback via een review. Bij geschillen helpt ons supportteam je binnen één werkdag verder en bemiddelen we waar nodig.</div>
+          </details>
+        </div>
+      </section>
+    </main>
+
+    <footer class="app-footer" aria-label="Voettekst">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-brand">
+            <svg class="logomark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" aria-hidden="true"><defs><linearGradient id="kgf1" x1="8" y1="8" x2="56" y2="56" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#6b75ff"/><stop offset="50%" stop-color="#8b5cf6"/><stop offset="100%" stop-color="#38d4ff"/></linearGradient></defs><rect x="2" y="2" width="60" height="60" rx="16" fill="#0c0e14" stroke="url(#kgf1)" stroke-width="1.5"/><path d="M19 16 L19 48 M19 32 L34 16 M19 32 L34 48" stroke="url(#kgf1)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><circle cx="44" cy="32" r="2.5" fill="#38d4ff"/></svg>
+            <span class="logo-word">klusraak</span>
+          </div>
+          <p class="footer-blurb">De snelste weg naar de juiste vakman in heel Nederland. Door en voor mensen die werk maken van hun woning.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Diensten</h4>
+          <ul>
+            <li><a href="#" data-go="sc-services">Alle diensten</a></li>
+            <li><a href="#" data-action="open-register-craftsman">Word vakman</a></li>
+            <li><a href="#" data-scroll-to="#home-faq">Veelgestelde vragen</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Klusraak</h4>
+          <ul>
+            <li><a href="#">Over ons</a></li>
+            <li><a href="#">Veelgestelde vragen</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Juridisch</h4>
+          <ul>
+            <li><a href="#">Privacy</a></li>
+            <li><a href="#">Algemene voorwaarden</a></li>
+            <li><a href="#">Cookies</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        © <span id="footer-year">2026</span> Klusraak (demo) · KvK 00000000 · Gemaakt met zorg in Nederland.
+      </div>
+    </footer>
+  </section>
+
+  <!-- ============================================================
+       SERVICES (alle diensten)
+       ============================================================ -->
+  <section id="sc-services" class="sc" aria-labelledby="services-page-title">
+    <header class="app-header">
+      <div class="app-header__inner">
+        <button type="button" class="btn btn-ghost" data-go="sc-home" aria-label="Terug naar home"><i data-lucide="arrow-left"></i>Home</button>
+        <button type="button" class="logo" data-go="sc-home"><svg class="logomark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" aria-hidden="true"><defs><linearGradient id="kgs1" x1="8" y1="8" x2="56" y2="56" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#6b75ff"/><stop offset="50%" stop-color="#8b5cf6"/><stop offset="100%" stop-color="#38d4ff"/></linearGradient></defs><rect x="2" y="2" width="60" height="60" rx="16" fill="#0c0e14" stroke="url(#kgs1)" stroke-width="1.5"/><path d="M19 16 L19 48 M19 32 L34 16 M19 32 L34 48" stroke="url(#kgs1)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><circle cx="44" cy="32" r="2.5" fill="#38d4ff"/></svg><span class="logo-word">klusraak</span></button>
+        <div class="nav-right">
+          <button type="button" class="theme-toggle" data-action="toggle-theme" aria-label="Wissel thema" aria-pressed="false"><i data-lucide="moon"></i></button>
+        </div>
+      </div>
+    </header>
+    <main id="main">
+      <div class="ctr">
+        <div class="sec-label">Diensten</div>
+        <h1 id="services-page-title" class="h2" tabindex="-1">Alle diensten</h1>
+        <p class="sm mt8">Kies de dienst die past bij jouw klus en plaats hem in een paar tikken.</p>
+
+        <div class="svc-search mt16">
+          <input type="search" id="services-search" placeholder="Zoek dienst (bv. lekkage, schilder, airco)" aria-label="Zoek een dienst" autocomplete="off" />
+        </div>
+
+        <div id="services-results" aria-live="polite"></div>
+      </div>
+    </main>
+  </section>
+
+  <!-- ============================================================
+       AUTH
+       ============================================================ -->
+  <section id="sc-auth" class="sc" aria-labelledby="auth-title">
+    <header class="app-header">
+      <div class="app-header__inner">
+        <button type="button" class="btn btn-ghost" data-go="sc-home"><i data-lucide="arrow-left"></i>Terug</button>
+        <button type="button" class="logo" data-go="sc-home"><svg class="logomark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" aria-hidden="true"><defs><linearGradient id="kga1" x1="8" y1="8" x2="56" y2="56" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#6b75ff"/><stop offset="50%" stop-color="#8b5cf6"/><stop offset="100%" stop-color="#38d4ff"/></linearGradient></defs><rect x="2" y="2" width="60" height="60" rx="16" fill="#0c0e14" stroke="url(#kga1)" stroke-width="1.5"/><path d="M19 16 L19 48 M19 32 L34 16 M19 32 L34 48" stroke="url(#kga1)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><circle cx="44" cy="32" r="2.5" fill="#38d4ff"/></svg><span class="logo-word">klusraak</span></button>
+        <div class="nav-right">
+          <button type="button" class="theme-toggle" data-action="toggle-theme" aria-label="Wissel thema" aria-pressed="false"><i data-lucide="moon"></i></button>
+        </div>
+      </div>
+    </header>
+    <main id="main">
+      <div class="ctr ctr--narrow">
+        <h1 id="auth-title" class="h2 visually-hidden" tabindex="-1">Inloggen of registreren</h1>
+        <div class="rtabs" role="tablist" aria-label="Inloggen of registreren">
+          <button type="button" class="rtab on" role="tab" aria-selected="true" aria-controls="form-login" data-tab="login">Inloggen</button>
+          <button type="button" class="rtab" role="tab" aria-selected="false" aria-controls="form-register" data-tab="register">Registreren</button>
+        </div>
+
+        <!-- Login -->
+        <form id="form-login" class="flex fc g12" role="tabpanel" novalidate>
+          <div class="fg">
+            <label for="login-email">E-mail<span class="req" aria-hidden="true">*</span></label>
+            <input type="email" id="login-email" name="email" required aria-required="true" placeholder="jij@voorbeeld.nl" autocomplete="email" />
+          </div>
+          <div class="fg">
+            <label for="login-password">Wachtwoord<span class="req" aria-hidden="true">*</span></label>
+            <div class="pw-w">
+              <input type="password" id="login-password" name="password" required aria-required="true" minlength="8" autocomplete="current-password" />
+              <button type="button" class="pw-t" data-toggle-pw aria-label="Toon wachtwoord" aria-pressed="false"><i data-lucide="eye"></i></button>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary btn-full mt8">Inloggen</button>
+          <p class="sm tc">Demo: <code>klant@klusraak.nl</code> / <code>Demo1234!</code></p>
+        </form>
+
+        <!-- Register -->
+        <form id="form-register" class="flex fc g12" hidden role="tabpanel" novalidate>
+          <fieldset class="fg" style="border:0;padding:0;">
+            <legend class="visually-hidden">Kies je rol</legend>
+            <div class="og">
+              <button type="button" class="oc sel" data-role="CLIENT" aria-pressed="true">
+                <div class="oi"><i data-lucide="briefcase"></i></div>
+                <div class="ol">Ik heb een klus</div>
+                <div class="os">Klant</div>
+              </button>
+              <button type="button" class="oc" data-role="CRAFTSMAN" aria-pressed="false">
+                <div class="oi"><i data-lucide="hard-hat"></i></div>
+                <div class="ol">Ik ben vakman</div>
+                <div class="os">Aanbieder</div>
+              </button>
+            </div>
+          </fieldset>
+          <input type="hidden" name="role" value="CLIENT" />
+
+          <div class="fg">
+            <label for="register-name">Naam<span class="req" aria-hidden="true">*</span></label>
+            <input type="text" id="register-name" name="name" required aria-required="true" minlength="2" placeholder="Jouw naam" autocomplete="name" />
+          </div>
+          <div class="fg">
+            <label for="register-email">E-mail<span class="req" aria-hidden="true">*</span></label>
+            <input type="email" id="register-email" name="email" required aria-required="true" placeholder="jij@voorbeeld.nl" autocomplete="email" />
+          </div>
+          <div class="fg">
+            <label for="register-phone">Telefoon</label>
+            <input type="tel" id="register-phone" name="phone" placeholder="+31 6 ..." autocomplete="tel" />
+          </div>
+          <div class="fg">
+            <label for="register-password">Wachtwoord<span class="req" aria-hidden="true">*</span></label>
+            <div class="pw-w">
+              <input type="password" id="register-password" name="password" required aria-required="true" minlength="8" autocomplete="new-password" />
+              <button type="button" class="pw-t" data-toggle-pw aria-label="Toon wachtwoord" aria-pressed="false"><i data-lucide="eye"></i></button>
+            </div>
+            <span class="field-hint">Minimaal 8 tekens.</span>
+          </div>
+          <button type="submit" class="btn btn-primary btn-full mt8">Account aanmaken</button>
+        </form>
+      </div>
+    </main>
+  </section>
+
+  <!-- ============================================================
+       DASHBOARD
+       ============================================================ -->
+  <section id="sc-dash" class="sc" aria-labelledby="dash-title">
+    <header class="app-header">
+      <div class="app-header__inner">
+        <button type="button" class="logo" data-go="sc-dash"><svg class="logomark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" aria-hidden="true"><defs><linearGradient id="kgd1" x1="8" y1="8" x2="56" y2="56" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#6b75ff"/><stop offset="50%" stop-color="#8b5cf6"/><stop offset="100%" stop-color="#38d4ff"/></linearGradient></defs><rect x="2" y="2" width="60" height="60" rx="16" fill="#0c0e14" stroke="url(#kgd1)" stroke-width="1.5"/><path d="M19 16 L19 48 M19 32 L34 16 M19 32 L34 48" stroke="url(#kgd1)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><circle cx="44" cy="32" r="2.5" fill="#38d4ff"/></svg><span class="logo-word">klusraak</span></button>
+        <nav class="nav-links" aria-label="Hoofdnavigatie">
+          <button type="button" class="nav-link" data-go="sc-dash" aria-current="page">Home</button>
+          <button type="button" class="nav-link" data-go="sc-jobs">Klussen</button>
+          <button type="button" class="nav-link" data-go="sc-services">Diensten</button>
+          <button type="button" class="nav-link" data-go="sc-profile">Profiel</button>
+        </nav>
+        <div class="nav-right">
+          <button type="button" class="theme-toggle" data-action="toggle-theme" aria-label="Wissel thema" aria-pressed="false"><i data-lucide="moon"></i></button>
+          <button type="button" class="btn btn-ghost" data-action="logout">Uitloggen</button>
+        </div>
+      </div>
+    </header>
+    <main id="main">
+      <div class="ctr" id="dash-body">
+        <h1 id="dash-title" class="visually-hidden" tabindex="-1">Dashboard</h1>
+      </div>
+    </main>
+    <nav class="bnav" aria-label="Snelnavigatie">
+      <button type="button" class="bni" data-go="sc-dash" aria-current="page" aria-label="Home"><span class="ico"><i data-lucide="home"></i></span>Home</button>
+      <button type="button" class="bni" data-go="sc-jobs" aria-label="Mijn klussen"><span class="ico"><i data-lucide="list-checks"></i></span>Klussen</button>
+      <button type="button" class="bni" data-go="sc-services" aria-label="Alle diensten"><span class="ico"><i data-lucide="layout-grid"></i></span>Diensten</button>
+      <button type="button" class="bni" data-go="sc-profile" aria-label="Profiel"><span class="ico"><i data-lucide="user"></i></span>Profiel</button>
+    </nav>
+  </section>
+
+  <!-- ============================================================
+       JOBS LIST (role-aware)
+       ============================================================ -->
+  <section id="sc-jobs" class="sc" aria-labelledby="jobs-title">
+    <header class="app-header">
+      <div class="app-header__inner">
+        <button type="button" class="btn btn-ghost" data-go="sc-dash" aria-label="Terug naar home"><i data-lucide="arrow-left"></i>Home</button>
+        <button type="button" class="logo" data-go="sc-dash"><svg class="logomark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" aria-hidden="true"><defs><linearGradient id="kgj1" x1="8" y1="8" x2="56" y2="56" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#6b75ff"/><stop offset="50%" stop-color="#8b5cf6"/><stop offset="100%" stop-color="#38d4ff"/></linearGradient></defs><rect x="2" y="2" width="60" height="60" rx="16" fill="#0c0e14" stroke="url(#kgj1)" stroke-width="1.5"/><path d="M19 16 L19 48 M19 32 L34 16 M19 32 L34 48" stroke="url(#kgj1)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><circle cx="44" cy="32" r="2.5" fill="#38d4ff"/></svg><span class="logo-word">klusraak</span></button>
+        <div class="nav-right">
+          <button type="button" class="theme-toggle" data-action="toggle-theme" aria-label="Wissel thema" aria-pressed="false"><i data-lucide="moon"></i></button>
+        </div>
+      </div>
+    </header>
+    <main id="main">
+      <div class="ctr">
+        <h1 class="h2" id="jobs-title" tabindex="-1">Mijn klussen</h1>
+        <div class="chips mt12" id="jobs-chips" role="toolbar" aria-label="Filter op categorie"></div>
+        <div class="grid-2 mt16" id="jobs-list" aria-live="polite"></div>
+      </div>
+    </main>
+    <nav class="bnav" aria-label="Snelnavigatie">
+      <button type="button" class="bni" data-go="sc-dash" aria-label="Home"><span class="ico"><i data-lucide="home"></i></span>Home</button>
+      <button type="button" class="bni" data-go="sc-jobs" aria-current="page" aria-label="Mijn klussen"><span class="ico"><i data-lucide="list-checks"></i></span>Klussen</button>
+      <button type="button" class="bni" data-go="sc-services" aria-label="Alle diensten"><span class="ico"><i data-lucide="layout-grid"></i></span>Diensten</button>
+      <button type="button" class="bni" data-go="sc-profile" aria-label="Profiel"><span class="ico"><i data-lucide="user"></i></span>Profiel</button>
+    </nav>
+  </section>
+
+  <!-- ============================================================
+       NEW JOB
+       ============================================================ -->
+  <section id="sc-new" class="sc" aria-labelledby="new-title">
+    <header class="app-header">
+      <div class="app-header__inner">
+        <button type="button" class="btn btn-ghost" data-go="sc-dash"><i data-lucide="arrow-left"></i>Terug</button>
+        <button type="button" class="logo" data-go="sc-dash"><svg class="logomark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" aria-hidden="true"><defs><linearGradient id="kgn1" x1="8" y1="8" x2="56" y2="56" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#6b75ff"/><stop offset="50%" stop-color="#8b5cf6"/><stop offset="100%" stop-color="#38d4ff"/></linearGradient></defs><rect x="2" y="2" width="60" height="60" rx="16" fill="#0c0e14" stroke="url(#kgn1)" stroke-width="1.5"/><path d="M19 16 L19 48 M19 32 L34 16 M19 32 L34 48" stroke="url(#kgn1)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><circle cx="44" cy="32" r="2.5" fill="#38d4ff"/></svg><span class="logo-word">klusraak</span></button>
+        <div class="nav-right">
+          <button type="button" class="theme-toggle" data-action="toggle-theme" aria-label="Wissel thema" aria-pressed="false"><i data-lucide="moon"></i></button>
+        </div>
+      </div>
+    </header>
+    <main id="main">
+      <div class="ctr ctr--narrow">
+        <ol class="stepper" aria-label="Voortgang" role="list">
+          <li aria-current="step"><span class="stepper__num">1</span><span class="stepper__lbl">Beschrijf klus</span></li>
+          <li><span class="stepper__num">2</span><span class="stepper__lbl">Vakman accepteert</span></li>
+          <li><span class="stepper__num">3</span><span class="stepper__lbl">Klaar &amp; betalen</span></li>
+        </ol>
+        <h1 id="new-title" class="h2" tabindex="-1">Plaats je klus</h1>
+        <p class="sm mt8">Beschrijf zo concreet mogelijk — dat helpt vakmannen sneller te reageren. Duurt ongeveer 2 minuten.</p>
+        <form id="form-new-job" class="flex fc g12 mt16" novalidate>
+          <div class="fg">
+            <label for="newjob-category">Categorie<span class="req" aria-hidden="true">*</span></label>
+            <select id="newjob-category" name="categoryId" required aria-required="true"></select>
+          </div>
+          <div class="fg">
+            <label for="newjob-title">Titel<span class="req" aria-hidden="true">*</span></label>
+            <input type="text" id="newjob-title" name="title" required aria-required="true" minlength="4" maxlength="120" placeholder="Bijv. stopcontact vervangen" />
+          </div>
+          <div class="fg">
+            <label for="newjob-description">Beschrijving<span class="req" aria-hidden="true">*</span></label>
+            <textarea id="newjob-description" name="description" required aria-required="true" minlength="10" maxlength="5000" rows="4" placeholder="Wat moet er gebeuren?"></textarea>
+          </div>
+          <div class="fg">
+            <label for="newjob-city">Stad<span class="req" aria-hidden="true">*</span></label>
+            <input type="text" id="newjob-city" name="city" required aria-required="true" placeholder="Amsterdam" />
+          </div>
+          <div class="fg">
+            <label for="newjob-postcode">Postcode</label>
+            <input type="text" id="newjob-postcode" name="postcode" placeholder="1011AB" autocomplete="postal-code" />
+          </div>
+          <div class="fg">
+            <label for="newjob-budget">Budget (€, optioneel)</label>
+            <input type="number" id="newjob-budget" name="budgetEuro" min="0" step="1" placeholder="bijv. 75" inputmode="numeric" />
+          </div>
+          <button type="submit" class="btn btn-primary btn-full mt8">Klus plaatsen</button>
+        </form>
+      </div>
+    </main>
+  </section>
+
+  <!-- ============================================================
+       JOB DETAIL
+       ============================================================ -->
+  <section id="sc-job" class="sc" aria-labelledby="job-title">
+    <header class="app-header">
+      <div class="app-header__inner">
+        <button type="button" class="btn btn-ghost" data-go="sc-jobs"><i data-lucide="arrow-left"></i>Klussen</button>
+        <button type="button" class="logo" data-go="sc-dash"><svg class="logomark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" aria-hidden="true"><defs><linearGradient id="kgjd1" x1="8" y1="8" x2="56" y2="56" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#6b75ff"/><stop offset="50%" stop-color="#8b5cf6"/><stop offset="100%" stop-color="#38d4ff"/></linearGradient></defs><rect x="2" y="2" width="60" height="60" rx="16" fill="#0c0e14" stroke="url(#kgjd1)" stroke-width="1.5"/><path d="M19 16 L19 48 M19 32 L34 16 M19 32 L34 48" stroke="url(#kgjd1)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><circle cx="44" cy="32" r="2.5" fill="#38d4ff"/></svg><span class="logo-word">klusraak</span></button>
+        <div class="nav-right">
+          <button type="button" class="theme-toggle" data-action="toggle-theme" aria-label="Wissel thema" aria-pressed="false"><i data-lucide="moon"></i></button>
+        </div>
+      </div>
+    </header>
+    <main id="main">
+      <div class="ctr ctr--narrow" id="job-body">
+        <h1 id="job-title" class="visually-hidden" tabindex="-1">Klus</h1>
+      </div>
+    </main>
+  </section>
+
+  <!-- ============================================================
+       CHAT
+       ============================================================ -->
+  <section id="sc-chat" class="sc" aria-labelledby="chat-title">
+    <header class="app-header">
+      <div class="app-header__inner">
+        <button type="button" class="btn btn-ghost" data-action="back-to-job"><i data-lucide="arrow-left"></i>Klus</button>
+        <h1 id="chat-title" class="logo" tabindex="-1"><span class="logo-word">Chat</span></h1>
+        <div class="nav-right">
+          <button type="button" class="theme-toggle" data-action="toggle-theme" aria-label="Wissel thema" aria-pressed="false"><i data-lucide="moon"></i></button>
+        </div>
+      </div>
+    </header>
+    <main id="main" class="flex fc" style="flex:1;">
+      <div class="chat-ctr flex fc g8" id="chat-thread" aria-live="polite" aria-relevant="additions"></div>
+      <button type="button" id="chat-new-pill" class="chat-new-pill" hidden>Nieuwe berichten <i data-lucide="arrow-down" style="width:12px;height:12px;"></i></button>
+      <form id="chat-form" class="chat-input-row" novalidate>
+        <label for="chat-input" class="visually-hidden">Bericht</label>
+        <input type="text" id="chat-input" name="content" placeholder="Bericht..." autocomplete="off" required aria-required="true" />
+        <button type="submit" class="btn btn-primary btn-sm" aria-label="Stuur bericht"><i data-lucide="send"></i></button>
+      </form>
+    </main>
+  </section>
+
+  <!-- ============================================================
+       PROFILE
+       ============================================================ -->
+  <section id="sc-profile" class="sc" aria-labelledby="profile-title">
+    <header class="app-header">
+      <div class="app-header__inner">
+        <button type="button" class="btn btn-ghost" data-go="sc-dash"><i data-lucide="arrow-left"></i>Home</button>
+        <button type="button" class="logo" data-go="sc-dash"><svg class="logomark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" aria-hidden="true"><defs><linearGradient id="kgp1" x1="8" y1="8" x2="56" y2="56" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#6b75ff"/><stop offset="50%" stop-color="#8b5cf6"/><stop offset="100%" stop-color="#38d4ff"/></linearGradient></defs><rect x="2" y="2" width="60" height="60" rx="16" fill="#0c0e14" stroke="url(#kgp1)" stroke-width="1.5"/><path d="M19 16 L19 48 M19 32 L34 16 M19 32 L34 48" stroke="url(#kgp1)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><circle cx="44" cy="32" r="2.5" fill="#38d4ff"/></svg><span class="logo-word">klusraak</span></button>
+        <div class="nav-right">
+          <button type="button" class="theme-toggle" data-action="toggle-theme" aria-label="Wissel thema" aria-pressed="false"><i data-lucide="moon"></i></button>
+        </div>
+      </div>
+    </header>
+    <main id="main">
+      <div class="ctr ctr--narrow" id="profile-body">
+        <h1 id="profile-title" class="visually-hidden" tabindex="-1">Profiel</h1>
+      </div>
+    </main>
+    <nav class="bnav" aria-label="Snelnavigatie">
+      <button type="button" class="bni" data-go="sc-dash" aria-label="Home"><span class="ico"><i data-lucide="home"></i></span>Home</button>
+      <button type="button" class="bni" data-go="sc-jobs" aria-label="Mijn klussen"><span class="ico"><i data-lucide="list-checks"></i></span>Klussen</button>
+      <button type="button" class="bni" data-go="sc-services" aria-label="Alle diensten"><span class="ico"><i data-lucide="layout-grid"></i></span>Diensten</button>
+      <button type="button" class="bni" data-go="sc-profile" aria-current="page" aria-label="Profiel"><span class="ico"><i data-lucide="user"></i></span>Profiel</button>
+    </nav>
+  </section>
+
+  <!-- Lucide icons (CDN) -->
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+
+  <script src="js/config.js"></script>
+  <script src="js/demo/mock-store.js"></script>
+  <script src="js/demo/mock-data.js"></script>
+  <script src="js/demo/mock-api.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/store.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/router.js"></script>
+  <script src="js/screens.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
