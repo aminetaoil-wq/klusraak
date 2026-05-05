@@ -1,0 +1,39 @@
+name: Deploy demo to GitHub Pages
+
+# Publishes frontend/public to the gh-pages branch. Repo's Pages source
+# should be set to "Deploy from a branch: gh-pages".
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'frontend/public/**'
+      - '.github/workflows/deploy-demo-pages.yml'
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Publish to gh-pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: frontend/public
+          publish_branch: gh-pages
+          force_orphan: true
+          cname: ''
+          user_name: 'github-actions[bot]'
+          user_email: '41898282+github-actions[bot]@users.noreply.github.com'
+          commit_message: 'deploy: publish demo from ${{ github.sha }}'

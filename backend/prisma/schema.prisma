@@ -1,0 +1,205 @@
+// KlusRaak data model
+//
+// Conventions:
+//   - All ids are cuid strings (compact, sortable, URL-safe).
+//   - Timestamps use UTC and are managed by Prisma.
+//   - We keep things normalised. JSONB only for free-form payloads
+//     (notification.payload).
+
+generator client {
+  provider      = "prisma-client-js"
+  // `linux-musl-openssl-3.0.x` is required because the runtime image is
+  // node:20-alpine. Without it Prisma loads the wrong query engine binary
+  // and fails on first query with PrismaClientInitializationError.
+  binaryTargets = ["native", "linux-musl-openssl-3.0.x"]
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  // Migrations cannot run through pgbouncer (Neon's pooled URL) because
+  // Prisma uses prepared statements. `prisma migrate deploy` connects
+  // via DATABASE_DIRECT_URL; runtime queries keep using the pooled
+  // DATABASE_URL. Locally, point both at the same Postgres.
+  directUrl = env("DATABASE_DIRECT_URL")
+}
+
+enum Role {
+  CLIENT
+  CRAFTSMAN
+  ADMIN
+}
+
+enum JobStatus {
+  OPEN
+  ASSIGNED
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
+}
+
+enum NotificationType {
+  JOB_POSTED
+  JOB_ACCEPTED
+  JOB_STARTED
+  JOB_COMPLETED
+  JOB_CANCELLED
+  NEW_MESSAGE
+  NEW_REVIEW
+}
+
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  role         Role
+  name         String
+  phone        String?
+  avatarUrl    String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  craftsmanProfile CraftsmanProfile?
+  jobsPosted       Job[]             @relation("ClientJobs")
+  assignments      JobAssignment[]
+  messagesSent     Message[]         @relation("MessageSender")
+  reviewsGiven     Review[]          @relation("ReviewFrom")
+  reviewsReceived  Review[]          @relation("ReviewTo")
+  notifications    Notification[]
+  refreshTokens    RefreshToken[]
+
+  @@index([role])
+}
+
+model CraftsmanProfile {
+  id         String                @id @default(cuid())
+  userId     String                @unique
+  user       User                  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  kvkNumber  String?
+  bio        String?
+  hourlyRate Int? // in euro cents
+  city       String?
+  verified   Boolean               @default(false)
+  categories CategoryOnCraftsman[]
+  createdAt  DateTime              @default(now())
+  updatedAt  DateTime              @updatedAt
+
+  @@index([city])
+  @@index([verified])
+}
+
+model Category {
+  id        String                @id @default(cuid())
+  name      String                @unique
+  slug      String                @unique
+  icon      String?
+  // Optional grouping for UI catalog (e.g. "Tuin & buiten"). Nullable so
+  // existing data stays valid; the frontend falls back to "Overig".
+  group     String?
+  jobs      Job[]
+  craftsmen CategoryOnCraftsman[]
+  createdAt DateTime              @default(now())
+}
+
+// Many-to-many between craftsmen and the categories they serve.
+model CategoryOnCraftsman {
+  craftsmanId String
+  categoryId  String
+  craftsman   CraftsmanProfile @relation(fields: [craftsmanId], references: [id], onDelete: Cascade)
+  category    Category         @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+
+  @@id([craftsmanId, categoryId])
+  @@index([categoryId])
+}
+
+model Job {
+  id          String    @id @default(cuid())
+  clientId    String
+  client      User      @relation("ClientJobs", fields: [clientId], references: [id])
+  categoryId  String
+  category    Category  @relation(fields: [categoryId], references: [id])
+  title       String
+  description String
+  city        String
+  postcode    String?
+  budgetCents Int?
+  scheduledAt DateTime?
+  status      JobStatus @default(OPEN)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  assignment JobAssignment?
+  messages   Message[]
+  reviews    Review[]
+
+  @@index([status, createdAt])
+  @@index([categoryId, status])
+  @@index([clientId])
+  @@index([city])
+}
+
+model JobAssignment {
+  id          String    @id @default(cuid())
+  jobId       String    @unique
+  job         Job       @relation(fields: [jobId], references: [id], onDelete: Cascade)
+  craftsmanId String
+  craftsman   User      @relation(fields: [craftsmanId], references: [id])
+  acceptedAt  DateTime  @default(now())
+  startedAt   DateTime?
+  completedAt DateTime?
+
+  @@index([craftsmanId])
+}
+
+model Message {
+  id        String    @id @default(cuid())
+  jobId     String
+  job       Job       @relation(fields: [jobId], references: [id], onDelete: Cascade)
+  senderId  String
+  sender    User      @relation("MessageSender", fields: [senderId], references: [id])
+  content   String
+  readAt    DateTime?
+  createdAt DateTime  @default(now())
+
+  @@index([jobId, createdAt])
+}
+
+model Review {
+  id        String   @id @default(cuid())
+  jobId     String
+  job       Job      @relation(fields: [jobId], references: [id], onDelete: Cascade)
+  fromId    String
+  from      User     @relation("ReviewFrom", fields: [fromId], references: [id])
+  toId      String
+  to        User     @relation("ReviewTo", fields: [toId], references: [id])
+  rating    Int
+  comment   String?
+  createdAt DateTime @default(now())
+
+  @@unique([jobId, fromId])
+  @@index([toId])
+}
+
+model Notification {
+  id        String           @id @default(cuid())
+  userId    String
+  user      User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  type      NotificationType
+  payload   Json
+  readAt    DateTime?
+  createdAt DateTime         @default(now())
+
+  @@index([userId, createdAt])
+}
+
+model RefreshToken {
+  id        String    @id @default(cuid())
+  userId    String
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  tokenHash String    @unique
+  expiresAt DateTime
+  revokedAt DateTime?
+  createdAt DateTime  @default(now())
+
+  @@index([userId])
+}

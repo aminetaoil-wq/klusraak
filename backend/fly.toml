@@ -1,0 +1,60 @@
+# Fly.io app config for KlusRaak.
+#
+# One image, two processes:
+#   - app:    HTTP API (node dist/server.js)
+#   - worker: BullMQ consumer (node dist/worker.js)
+#
+# Migrations run as a release_command before each rollout. All secrets are
+# set via `fly secrets set` (see docs/DEPLOYMENT.md), never in this file.
+
+app = "klusraak-api"
+primary_region = "ams"
+
+[build]
+  dockerfile = "Dockerfile"
+
+[deploy]
+  release_command = "npx prisma migrate deploy"
+  strategy = "rolling"
+
+[processes]
+  app    = "node dist/server.js"
+  worker = "node dist/worker.js"
+
+[env]
+  NODE_ENV  = "production"
+  PORT      = "4000"
+  LOG_LEVEL = "info"
+
+# Public HTTP service mounted only on the `app` process.
+[http_service]
+  processes              = ["app"]
+  internal_port          = 4000
+  force_https            = true
+  auto_stop_machines     = false
+  auto_start_machines    = true
+  min_machines_running   = 1
+
+  [http_service.concurrency]
+    type       = "requests"
+    soft_limit = 200
+    hard_limit = 250
+
+  [[http_service.checks]]
+    interval      = "30s"
+    timeout       = "5s"
+    grace_period  = "15s"
+    method        = "GET"
+    path          = "/ready"
+
+# VM sizing per process group. Bump memory if Prisma's query engine reports
+# OOM during cold start under load.
+[[vm]]
+  size      = "shared-cpu-1x"
+  memory    = "512mb"
+  processes = ["app"]
+
+[[vm]]
+  size      = "shared-cpu-1x"
+  memory    = "512mb"
+  processes = ["worker"]
