@@ -2,7 +2,11 @@
 
 > De snelste weg naar de juiste vakman. Marktplaats voor Nederlandse klussen — klanten plaatsen werk, vakmannen accepteren binnen 30 minuten.
 
-**Live demo:** https://aminetaoil-wq.github.io/klusraak/?demo=1 *(actief zodra GitHub Pages aan staat — zie deploy-sectie)*
+### 🚀 [Open de live demo →](https://aminetaoil-wq.github.io/klusraak/?demo=1)
+
+[![Open demo](https://img.shields.io/badge/demo-live-brightgreen?style=for-the-badge)](https://aminetaoil-wq.github.io/klusraak/?demo=1)
+
+> Activeren in één keer: merge PR naar `main` → **Settings → Pages → Source: `gh-pages` / `(root)`**. Daarna publiceert elke push naar `main` automatisch naar de demo (zie [Aanpassen & uitbreiden](#aanpassen--uitbreiden)).
 
 ---
 
@@ -49,6 +53,26 @@ python3 -m http.server 5173
 1. **Repo instelling** — Settings → Pages → Source: *Deploy from a branch* → `gh-pages` / `(root)`
 2. **Push naar `main`** — `.github/workflows/deploy-demo-pages.yml` publiceert dan `frontend/public/` naar `gh-pages`
 3. **Site beschikbaar op** `https://<owner>.github.io/<repo>/?demo=1`
+
+## Aanpassen & uitbreiden
+
+De demo wordt direct uit deze repo gepubliceerd, dus elke wijziging in `frontend/public/` belandt na een push naar `main` automatisch op de live demo (workflow run duurt ~30s).
+
+**Workflow voor wijzigingen:**
+
+1. Maak een branch aan (of vraag het deze agent: *"pas X aan"*).
+2. Edit de relevante bestanden:
+   - **UI / schermen** → `frontend/public/js/screens.js`
+   - **Routing** → `frontend/public/js/router.js`
+   - **State / store** → `frontend/public/js/store.js`
+   - **Styling** → `frontend/public/css/styles.css`
+   - **Mock-data voor demo** → `frontend/public/js/demo/mock-data.js`
+   - **Mock-API responses** → `frontend/public/js/demo/mock-api.js`
+   - **Markup root** → `frontend/public/index.html`
+3. Test lokaal: `cd frontend/public && python3 -m http.server 5173` → `http://localhost:5173/?demo=1`.
+4. Open een PR → merge naar `main` → demo update zelf binnen ~1 min.
+
+**Backend uitbreiden** → `backend/src/modules/<feature>/` (routes, schemas, service per feature). Daarna `npx prisma migrate dev` als schema verandert. Zie `docs/DEPLOYMENT.md` voor productie-deploy naar Fly.io.
 
 ## Backend deploy
 
