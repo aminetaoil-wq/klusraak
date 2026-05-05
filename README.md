@@ -2,11 +2,13 @@
 
 > De snelste weg naar de juiste vakman. Marktplaats voor Nederlandse klussen — klanten plaatsen werk, vakmannen accepteren binnen 30 minuten.
 
-### 🚀 [Open de live demo →](https://aminetaoil-wq.github.io/klusraak/?demo=1)
+## 🌐 Live demo
 
-[![Open demo](https://img.shields.io/badge/demo-live-brightgreen?style=for-the-badge)](https://aminetaoil-wq.github.io/klusraak/?demo=1)
+**👉 [https://aminetaoil-wq.github.io/klusraak/?demo=1](https://aminetaoil-wq.github.io/klusraak/?demo=1)**
 
-> Activeren in één keer: merge PR naar `main` → **Settings → Pages → Source: `gh-pages` / `(root)`**. Daarna publiceert elke push naar `main` automatisch naar de demo (zie [Aanpassen & uitbreiden](#aanpassen--uitbreiden)).
+[![demo live](https://img.shields.io/badge/demo-live-brightgreen?style=for-the-badge)](https://aminetaoil-wq.github.io/klusraak/?demo=1) [![GitHub Pages](https://img.shields.io/badge/hosted_on-GitHub_Pages-181717?style=for-the-badge&logo=github)](https://aminetaoil-wq.github.io/klusraak/?demo=1)
+
+> De `?demo=1` flag zet een localStorage-backed mock-API aan zodat de SPA werkt zonder backend. Zie ook [`DEMO.md`](./DEMO.md).
 
 ---
 
