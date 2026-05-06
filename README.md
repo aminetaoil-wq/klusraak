@@ -10,6 +10,9 @@
 
 > Op `github.io` slaat de demo-modus automatisch aan (mock-API in localStorage, geen backend nodig). Lokaal werkt `?demo=1` als handmatige toggle, en `?demo=0` is de escape hatch om de echte backend te gebruiken. Zie ook [`DEMO.md`](./DEMO.md).
 
+📦 **Standalone demo voor lokaal testen** (geen Pages, geen cache-gedoe):
+[`klusraak-demo.html`](./klusraak-demo.html) — één bestand van ~180 KB met alle CSS en JS ingebakken. Download → dubbelklik → opent in elke browser. Demo-modus staat al aan. Rebuild via `python3 scripts/build-standalone.py`.
+
 ---
 
 ## Stack
