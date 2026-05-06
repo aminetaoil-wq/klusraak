@@ -2,9 +2,9 @@
 
 ## 🌐 Open de demo
 
-**https://aminetaoil-wq.github.io/klusraak/?demo=1**
+**https://aminetaoil-wq.github.io/klusraak/**
 
-[![demo live](https://img.shields.io/badge/demo-live-brightgreen?style=for-the-badge)](https://aminetaoil-wq.github.io/klusraak/?demo=1)
+[![demo live](https://img.shields.io/badge/demo-live-brightgreen?style=for-the-badge)](https://aminetaoil-wq.github.io/klusraak/)
 
 ## Demo accounts
 
@@ -15,7 +15,8 @@
 
 ## Hoe werkt de demo?
 
-- De `?demo=1` flag in de URL activeert een **localStorage-backed mock-API** (`frontend/public/js/demo/mock-api.js`).
+- Op `*.github.io` slaat de **localStorage-backed mock-API** automatisch aan (`frontend/public/js/demo/mock-api.js`) — geen URL-parameter nodig.
+- Lokaal werkt `?demo=1` als handmatige toggle, en `?demo=0` is de escape hatch om met een echte backend te praten.
 - Alle data leeft lokaal in je browser — niets gaat naar een server.
 - Reset de demo door in de browser console te draaien: `localStorage.clear()` en herladen.
 

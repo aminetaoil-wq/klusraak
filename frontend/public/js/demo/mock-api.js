@@ -1,17 +1,19 @@
-// Static-demo mock backend. Activates when the URL has ?demo=1 or a
-// previous visit set the sticky flag. Patches window.fetch so every
-// /api/* call resolves locally; non-/api requests pass through to the
-// real network. Production code path is untouched when the flag is off.
+// Static-demo mock backend. Activates when the URL has ?demo=1, a previous
+// visit set the sticky flag, or the page is hosted somewhere without a
+// reachable backend (e.g. *.github.io). Patches window.fetch so every
+// /api/* call resolves locally; non-/api requests pass through.
 (function () {
   const FLAG_KEY = 'klusraak.demo';
   const params = new URLSearchParams(location.search);
   const fromUrl = params.has('demo') && params.get('demo') !== '0';
   const fromStorage = localStorage.getItem(FLAG_KEY) === '1';
+  const isLocalDev = ['localhost', '127.0.0.1', '0.0.0.0', ''].includes(location.hostname);
+  const fromHost = !isLocalDev && !window.KLUSRAAK_HAS_BACKEND;
   if (params.get('demo') === '0') {
     localStorage.removeItem(FLAG_KEY);
     return;
   }
-  if (!fromUrl && !fromStorage) return;
+  if (!fromUrl && !fromStorage && !fromHost) return;
   if (fromUrl) localStorage.setItem(FLAG_KEY, '1');
 
   // Force the real api.js to build relative /api/* URLs so our fetch

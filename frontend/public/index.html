@@ -23,24 +23,6 @@
   <!-- Snackbar -->
   <div id="snackbar" role="status" aria-live="polite" aria-atomic="true"></div>
 
-  <!-- Reusable logo template (referenced via <use>-style copy by JS later) -->
-  <template id="tpl-logomark">
-    <svg class="logomark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" aria-hidden="true">
-      <defs>
-        <linearGradient id="kg" x1="8" y1="8" x2="56" y2="56" gradientUnits="userSpaceOnUse">
-          <stop offset="0%" stop-color="#6b75ff"/><stop offset="50%" stop-color="#8b5cf6"/><stop offset="100%" stop-color="#38d4ff"/>
-        </linearGradient>
-        <linearGradient id="kgs" x1="0" y1="0" x2="0" y2="64" gradientUnits="userSpaceOnUse">
-          <stop offset="0%" stop-color="#ffffff" stop-opacity="0.18"/><stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
-        </linearGradient>
-      </defs>
-      <rect x="2" y="2" width="60" height="60" rx="16" fill="#0c0e14" stroke="url(#kg)" stroke-width="1.5"/>
-      <rect x="2" y="2" width="60" height="60" rx="16" fill="url(#kgs)"/>
-      <path d="M19 16 L19 48 M19 32 L34 16 M19 32 L34 48" stroke="url(#kg)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-      <circle cx="44" cy="32" r="2.5" fill="#38d4ff"/>
-    </svg>
-  </template>
-
   <!-- ============================================================
        HOME (public landing)
        ============================================================ -->
@@ -48,8 +30,7 @@
     <header class="app-header">
       <div class="app-header__inner">
         <button type="button" class="logo" data-go="sc-home" aria-label="Klusraak — naar home">
-          <svg class="logomark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" aria-hidden="true"><defs><linearGradient id="kgh1" x1="8" y1="8" x2="56" y2="56" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#6b75ff"/><stop offset="50%" stop-color="#8b5cf6"/><stop offset="100%" stop-color="#38d4ff"/></linearGradient></defs><rect x="2" y="2" width="60" height="60" rx="16" fill="#0c0e14" stroke="url(#kgh1)" stroke-width="1.5"/><path d="M19 16 L19 48 M19 32 L34 16 M19 32 L34 48" stroke="url(#kgh1)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><circle cx="44" cy="32" r="2.5" fill="#38d4ff"/></svg>
-          <span class="logo-word">klusraak</span>
+          <span class="logo-word">Klus<span class="accent-r">R</span>aak</span>
         </button>
         <nav class="nav-links" aria-label="Hoofdnavigatie">
           <button type="button" class="nav-link" data-go="sc-services">Diensten</button>
@@ -57,8 +38,9 @@
           <button type="button" class="nav-link" data-action="open-register-craftsman">Word vakman</button>
         </nav>
         <div class="nav-right">
+          <span class="demo-pill" aria-hidden="true">Demo</span>
           <button type="button" class="theme-toggle" data-action="toggle-theme" aria-label="Wissel naar licht thema" aria-pressed="false"><i data-lucide="moon"></i></button>
-          <button type="button" class="btn btn-primary btn-sm" data-action="open-login">Inloggen</button>
+          <button type="button" class="nav-login-link" data-action="open-login">Inloggen <i data-lucide="arrow-right"></i></button>
         </div>
       </div>
     </header>
@@ -68,67 +50,57 @@
         <div class="ctr fu">
           <div class="hero-intro">
             <span class="badge bo"><i data-lucide="sparkles" style="width:12px;height:12px;"></i>Gemiddeld binnen 30 min iemand</span>
-            <h1 id="home-title" class="h1 mt12" tabindex="-1">De snelste weg naar de juiste vakman.</h1>
-            <p class="lead mt12">Welke kant op? Kies hieronder hoe jij Klusraak gaat gebruiken.</p>
-          </div>
-
-          <div class="paths-grid mt32" role="group" aria-label="Kies je rol">
-            <article class="path-card path-card--client">
-              <div class="path-card__head">
-                <div class="path-card__icon" aria-hidden="true"><i data-lucide="briefcase"></i></div>
-                <div>
-                  <span class="eyebrow">Voor klanten</span>
-                  <h2 class="h3">Ik heb een klus</h2>
-                </div>
-              </div>
-              <p class="sm">Beschrijf wat er moet gebeuren — een vakman in jouw buurt pakt 'm meestal binnen 30 minuten op.</p>
-              <ol class="path-card__steps">
-                <li><span class="path-card__num">1</span><div><strong>Plaats je klus</strong><span class="xs">Categorie, beschrijving, stad — gratis</span></div></li>
-                <li><span class="path-card__num">2</span><div><strong>Vakman accepteert</strong><span class="xs">Eerste beschikbare in de buurt</span></div></li>
-                <li><span class="path-card__num">3</span><div><strong>Klaar &amp; betalen</strong><span class="xs">Beoordeel de vakman, reken veilig af</span></div></li>
-              </ol>
-              <button type="button" class="btn btn-primary btn-full path-card__cta" data-action="open-register-client">
-                Plaats nu een klus
+            <h1 id="home-title" class="h1 mt12" tabindex="-1">Jouw klus.<br><span class="accent">De juiste vakman.</span></h1>
+            <p class="lead mt12">Dien je klus in en de eerste beschikbare vakman in jouw buurt neemt hem aan. Snel, simpel, betrouwbaar.</p>
+            <div class="hero-cta-row">
+              <button type="button" class="btn btn-primary" data-action="open-register-client">
+                Klus plaatsen
                 <i data-lucide="arrow-right"></i>
               </button>
-              <p class="path-card__foot xs">Gratis · geen account vooraf nodig om te oriënteren</p>
-            </article>
-
-            <article class="path-card path-card--craftsman">
-              <div class="path-card__head">
-                <div class="path-card__icon path-card__icon--alt" aria-hidden="true"><i data-lucide="hard-hat"></i></div>
-                <div>
-                  <span class="eyebrow">Voor vakmannen</span>
-                  <h2 class="h3">Ik zoek werk</h2>
-                </div>
-              </div>
-              <p class="sm">Open klussen direct in je dashboard. Geen aanbestedingen, geen prijsoorlogen — gewoon "ja" zeggen op werk dat past.</p>
-              <ol class="path-card__steps">
-                <li><span class="path-card__num">1</span><div><strong>Maak een vakman-account</strong><span class="xs">KvK-controle binnen 24 uur</span></div></li>
-                <li><span class="path-card__num">2</span><div><strong>Open klussen in jouw buurt</strong><span class="xs">Filter op categorie en stad</span></div></li>
-                <li><span class="path-card__num">3</span><div><strong>Accepteer met één tik</strong><span class="xs">Plan in, voer uit, ontvang betaling</span></div></li>
-              </ol>
-              <button type="button" class="btn btn-secondary btn-full path-card__cta" data-action="open-register-craftsman">
+              <button type="button" class="btn btn-outline" data-action="open-register-craftsman">
                 Word vakman
-                <i data-lucide="arrow-right"></i>
               </button>
-              <p class="path-card__foot xs">Geen abonnement · provisie alleen op afgeronde klussen</p>
-            </article>
+            </div>
           </div>
 
           <div class="stat-grid mt32" aria-label="Statistieken">
             <div class="stat-box">
-              <div class="stat-num" data-counter="12450" data-suffix="+">12.450+</div>
+              <div class="stat-num" data-counter="12450" data-suffix="+">12k+</div>
               <div class="stat-lbl">Klussen</div>
             </div>
             <div class="stat-box">
-              <div class="stat-num" data-counter="2400" data-suffix="">2.400</div>
+              <div class="stat-num" data-counter="2400" data-suffix="">2.4k</div>
               <div class="stat-lbl">Vakmannen</div>
             </div>
             <div class="stat-box">
               <div class="stat-num">4,8 ★</div>
               <div class="stat-lbl">Gemiddeld</div>
             </div>
+          </div>
+
+          <span class="howto-eyebrow">Hoe het werkt</span>
+          <div class="howto-stack" role="list">
+            <article class="howto-step" role="listitem">
+              <span class="howto-step__num" aria-hidden="true">1</span>
+              <div class="howto-step__body">
+                <span class="howto-step__title">Plaats je klus</span>
+                <span class="howto-step__desc">Beschrijf wat er moet gebeuren, in welke stad, wanneer.</span>
+              </div>
+            </article>
+            <article class="howto-step" role="listitem">
+              <span class="howto-step__num" aria-hidden="true">2</span>
+              <div class="howto-step__body">
+                <span class="howto-step__title">Vakman accepteert</span>
+                <span class="howto-step__desc">De eerste beschikbare vakman in de buurt pakt 'm op.</span>
+              </div>
+            </article>
+            <article class="howto-step" role="listitem">
+              <span class="howto-step__num" aria-hidden="true">3</span>
+              <div class="howto-step__body">
+                <span class="howto-step__title">Klaar &amp; betalen</span>
+                <span class="howto-step__desc">Klus afgerond? Beoordeel de vakman en betaal veilig.</span>
+              </div>
+            </article>
           </div>
         </div>
       </div>
@@ -178,8 +150,8 @@
       <div class="footer-grid">
         <div>
           <div class="footer-brand">
-            <svg class="logomark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" aria-hidden="true"><defs><linearGradient id="kgf1" x1="8" y1="8" x2="56" y2="56" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#6b75ff"/><stop offset="50%" stop-color="#8b5cf6"/><stop offset="100%" stop-color="#38d4ff"/></linearGradient></defs><rect x="2" y="2" width="60" height="60" rx="16" fill="#0c0e14" stroke="url(#kgf1)" stroke-width="1.5"/><path d="M19 16 L19 48 M19 32 L34 16 M19 32 L34 48" stroke="url(#kgf1)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><circle cx="44" cy="32" r="2.5" fill="#38d4ff"/></svg>
-            <span class="logo-word">klusraak</span>
+            
+            <span class="logo-word">Klus<span class="accent-r">R</span>aak</span>
           </div>
           <p class="footer-blurb">De snelste weg naar de juiste vakman in heel Nederland. Door en voor mensen die werk maken van hun woning.</p>
         </div>
@@ -221,7 +193,7 @@
     <header class="app-header">
       <div class="app-header__inner">
         <button type="button" class="btn btn-ghost" data-go="sc-home" aria-label="Terug naar home"><i data-lucide="arrow-left"></i>Home</button>
-        <button type="button" class="logo" data-go="sc-home"><svg class="logomark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" aria-hidden="true"><defs><linearGradient id="kgs1" x1="8" y1="8" x2="56" y2="56" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#6b75ff"/><stop offset="50%" stop-color="#8b5cf6"/><stop offset="100%" stop-color="#38d4ff"/></linearGradient></defs><rect x="2" y="2" width="60" height="60" rx="16" fill="#0c0e14" stroke="url(#kgs1)" stroke-width="1.5"/><path d="M19 16 L19 48 M19 32 L34 16 M19 32 L34 48" stroke="url(#kgs1)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><circle cx="44" cy="32" r="2.5" fill="#38d4ff"/></svg><span class="logo-word">klusraak</span></button>
+        <button type="button" class="logo" data-go="sc-home"><span class="logo-word">Klus<span class="accent-r">R</span>aak</span></button>
         <div class="nav-right">
           <button type="button" class="theme-toggle" data-action="toggle-theme" aria-label="Wissel thema" aria-pressed="false"><i data-lucide="moon"></i></button>
         </div>
@@ -249,7 +221,7 @@
     <header class="app-header">
       <div class="app-header__inner">
         <button type="button" class="btn btn-ghost" data-go="sc-home"><i data-lucide="arrow-left"></i>Terug</button>
-        <button type="button" class="logo" data-go="sc-home"><svg class="logomark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" aria-hidden="true"><defs><linearGradient id="kga1" x1="8" y1="8" x2="56" y2="56" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#6b75ff"/><stop offset="50%" stop-color="#8b5cf6"/><stop offset="100%" stop-color="#38d4ff"/></linearGradient></defs><rect x="2" y="2" width="60" height="60" rx="16" fill="#0c0e14" stroke="url(#kga1)" stroke-width="1.5"/><path d="M19 16 L19 48 M19 32 L34 16 M19 32 L34 48" stroke="url(#kga1)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><circle cx="44" cy="32" r="2.5" fill="#38d4ff"/></svg><span class="logo-word">klusraak</span></button>
+        <button type="button" class="logo" data-go="sc-home"><span class="logo-word">Klus<span class="accent-r">R</span>aak</span></button>
         <div class="nav-right">
           <button type="button" class="theme-toggle" data-action="toggle-theme" aria-label="Wissel thema" aria-pressed="false"><i data-lucide="moon"></i></button>
         </div>
@@ -331,7 +303,7 @@
   <section id="sc-dash" class="sc" aria-labelledby="dash-title">
     <header class="app-header">
       <div class="app-header__inner">
-        <button type="button" class="logo" data-go="sc-dash"><svg class="logomark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" aria-hidden="true"><defs><linearGradient id="kgd1" x1="8" y1="8" x2="56" y2="56" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#6b75ff"/><stop offset="50%" stop-color="#8b5cf6"/><stop offset="100%" stop-color="#38d4ff"/></linearGradient></defs><rect x="2" y="2" width="60" height="60" rx="16" fill="#0c0e14" stroke="url(#kgd1)" stroke-width="1.5"/><path d="M19 16 L19 48 M19 32 L34 16 M19 32 L34 48" stroke="url(#kgd1)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><circle cx="44" cy="32" r="2.5" fill="#38d4ff"/></svg><span class="logo-word">klusraak</span></button>
+        <button type="button" class="logo" data-go="sc-dash"><span class="logo-word">Klus<span class="accent-r">R</span>aak</span></button>
         <nav class="nav-links" aria-label="Hoofdnavigatie">
           <button type="button" class="nav-link" data-go="sc-dash" aria-current="page">Home</button>
           <button type="button" class="nav-link" data-go="sc-jobs">Klussen</button>
@@ -364,7 +336,7 @@
     <header class="app-header">
       <div class="app-header__inner">
         <button type="button" class="btn btn-ghost" data-go="sc-dash" aria-label="Terug naar home"><i data-lucide="arrow-left"></i>Home</button>
-        <button type="button" class="logo" data-go="sc-dash"><svg class="logomark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" aria-hidden="true"><defs><linearGradient id="kgj1" x1="8" y1="8" x2="56" y2="56" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#6b75ff"/><stop offset="50%" stop-color="#8b5cf6"/><stop offset="100%" stop-color="#38d4ff"/></linearGradient></defs><rect x="2" y="2" width="60" height="60" rx="16" fill="#0c0e14" stroke="url(#kgj1)" stroke-width="1.5"/><path d="M19 16 L19 48 M19 32 L34 16 M19 32 L34 48" stroke="url(#kgj1)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><circle cx="44" cy="32" r="2.5" fill="#38d4ff"/></svg><span class="logo-word">klusraak</span></button>
+        <button type="button" class="logo" data-go="sc-dash"><span class="logo-word">Klus<span class="accent-r">R</span>aak</span></button>
         <div class="nav-right">
           <button type="button" class="theme-toggle" data-action="toggle-theme" aria-label="Wissel thema" aria-pressed="false"><i data-lucide="moon"></i></button>
         </div>
@@ -392,7 +364,7 @@
     <header class="app-header">
       <div class="app-header__inner">
         <button type="button" class="btn btn-ghost" data-go="sc-dash"><i data-lucide="arrow-left"></i>Terug</button>
-        <button type="button" class="logo" data-go="sc-dash"><svg class="logomark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" aria-hidden="true"><defs><linearGradient id="kgn1" x1="8" y1="8" x2="56" y2="56" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#6b75ff"/><stop offset="50%" stop-color="#8b5cf6"/><stop offset="100%" stop-color="#38d4ff"/></linearGradient></defs><rect x="2" y="2" width="60" height="60" rx="16" fill="#0c0e14" stroke="url(#kgn1)" stroke-width="1.5"/><path d="M19 16 L19 48 M19 32 L34 16 M19 32 L34 48" stroke="url(#kgn1)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><circle cx="44" cy="32" r="2.5" fill="#38d4ff"/></svg><span class="logo-word">klusraak</span></button>
+        <button type="button" class="logo" data-go="sc-dash"><span class="logo-word">Klus<span class="accent-r">R</span>aak</span></button>
         <div class="nav-right">
           <button type="button" class="theme-toggle" data-action="toggle-theme" aria-label="Wissel thema" aria-pressed="false"><i data-lucide="moon"></i></button>
         </div>
@@ -445,7 +417,7 @@
     <header class="app-header">
       <div class="app-header__inner">
         <button type="button" class="btn btn-ghost" data-go="sc-jobs"><i data-lucide="arrow-left"></i>Klussen</button>
-        <button type="button" class="logo" data-go="sc-dash"><svg class="logomark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" aria-hidden="true"><defs><linearGradient id="kgjd1" x1="8" y1="8" x2="56" y2="56" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#6b75ff"/><stop offset="50%" stop-color="#8b5cf6"/><stop offset="100%" stop-color="#38d4ff"/></linearGradient></defs><rect x="2" y="2" width="60" height="60" rx="16" fill="#0c0e14" stroke="url(#kgjd1)" stroke-width="1.5"/><path d="M19 16 L19 48 M19 32 L34 16 M19 32 L34 48" stroke="url(#kgjd1)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><circle cx="44" cy="32" r="2.5" fill="#38d4ff"/></svg><span class="logo-word">klusraak</span></button>
+        <button type="button" class="logo" data-go="sc-dash"><span class="logo-word">Klus<span class="accent-r">R</span>aak</span></button>
         <div class="nav-right">
           <button type="button" class="theme-toggle" data-action="toggle-theme" aria-label="Wissel thema" aria-pressed="false"><i data-lucide="moon"></i></button>
         </div>
@@ -489,7 +461,7 @@
     <header class="app-header">
       <div class="app-header__inner">
         <button type="button" class="btn btn-ghost" data-go="sc-dash"><i data-lucide="arrow-left"></i>Home</button>
-        <button type="button" class="logo" data-go="sc-dash"><svg class="logomark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" aria-hidden="true"><defs><linearGradient id="kgp1" x1="8" y1="8" x2="56" y2="56" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#6b75ff"/><stop offset="50%" stop-color="#8b5cf6"/><stop offset="100%" stop-color="#38d4ff"/></linearGradient></defs><rect x="2" y="2" width="60" height="60" rx="16" fill="#0c0e14" stroke="url(#kgp1)" stroke-width="1.5"/><path d="M19 16 L19 48 M19 32 L34 16 M19 32 L34 48" stroke="url(#kgp1)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><circle cx="44" cy="32" r="2.5" fill="#38d4ff"/></svg><span class="logo-word">klusraak</span></button>
+        <button type="button" class="logo" data-go="sc-dash"><span class="logo-word">Klus<span class="accent-r">R</span>aak</span></button>
         <div class="nav-right">
           <button type="button" class="theme-toggle" data-action="toggle-theme" aria-label="Wissel thema" aria-pressed="false"><i data-lucide="moon"></i></button>
         </div>

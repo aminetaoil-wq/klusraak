@@ -4,11 +4,11 @@
 
 ## 🌐 Live demo
 
-**👉 [https://aminetaoil-wq.github.io/klusraak/?demo=1](https://aminetaoil-wq.github.io/klusraak/?demo=1)**
+**👉 [https://aminetaoil-wq.github.io/klusraak/](https://aminetaoil-wq.github.io/klusraak/)**
 
-[![demo live](https://img.shields.io/badge/demo-live-brightgreen?style=for-the-badge)](https://aminetaoil-wq.github.io/klusraak/?demo=1) [![GitHub Pages](https://img.shields.io/badge/hosted_on-GitHub_Pages-181717?style=for-the-badge&logo=github)](https://aminetaoil-wq.github.io/klusraak/?demo=1)
+[![demo live](https://img.shields.io/badge/demo-live-brightgreen?style=for-the-badge)](https://aminetaoil-wq.github.io/klusraak/) [![GitHub Pages](https://img.shields.io/badge/hosted_on-GitHub_Pages-181717?style=for-the-badge&logo=github)](https://aminetaoil-wq.github.io/klusraak/)
 
-> De `?demo=1` flag zet een localStorage-backed mock-API aan zodat de SPA werkt zonder backend. Zie ook [`DEMO.md`](./DEMO.md).
+> Op `github.io` slaat de demo-modus automatisch aan (mock-API in localStorage, geen backend nodig). Lokaal werkt `?demo=1` als handmatige toggle, en `?demo=0` is de escape hatch om de echte backend te gebruiken. Zie ook [`DEMO.md`](./DEMO.md).
 
 ---
 
