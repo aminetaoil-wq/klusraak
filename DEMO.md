@@ -1,10 +1,15 @@
 # Klusraak — live demo
 
-## 🌐 Open de demo
+## 🚀 Open de demo
 
-**https://aminetaoil-wq.github.io/klusraak/**
+# 👉 [Klik hier om de demo te openen](https://htmlpreview.github.io/?https://raw.githubusercontent.com/aminetaoil-wq/klusraak/main/klusraak-demo.html)
 
-[![demo live](https://img.shields.io/badge/demo-live-brightgreen?style=for-the-badge)](https://aminetaoil-wq.github.io/klusraak/)
+[![open demo](https://img.shields.io/badge/▶_open_demo-FF7A00?style=for-the-badge)](https://htmlpreview.github.io/?https://raw.githubusercontent.com/aminetaoil-wq/klusraak/main/klusraak-demo.html)
+
+**Alternatieve URLs** (als de eerste hapert):
+- raw.githack.com — <https://raw.githack.com/aminetaoil-wq/klusraak/main/klusraak-demo.html>
+- statically.io — <https://cdn.statically.io/gh/aminetaoil-wq/klusraak/main/klusraak-demo.html>
+- GitHub Pages — <https://aminetaoil-wq.github.io/klusraak/>
 
 ## Demo accounts
 

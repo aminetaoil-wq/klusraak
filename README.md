@@ -2,16 +2,36 @@
 
 > De snelste weg naar de juiste vakman. Marktplaats voor Nederlandse klussen — klanten plaatsen werk, vakmannen accepteren binnen 30 minuten.
 
-## 🌐 Live demo
+## 🚀 Live demo — open hem direct
 
-**👉 [https://aminetaoil-wq.github.io/klusraak/](https://aminetaoil-wq.github.io/klusraak/)**
+# 👉 [Open Klusraak demo](https://htmlpreview.github.io/?https://raw.githubusercontent.com/aminetaoil-wq/klusraak/main/klusraak-demo.html)
 
-[![demo live](https://img.shields.io/badge/demo-live-brightgreen?style=for-the-badge)](https://aminetaoil-wq.github.io/klusraak/) [![GitHub Pages](https://img.shields.io/badge/hosted_on-GitHub_Pages-181717?style=for-the-badge&logo=github)](https://aminetaoil-wq.github.io/klusraak/)
+[![open demo](https://img.shields.io/badge/▶_open_demo-FF7A00?style=for-the-badge)](https://htmlpreview.github.io/?https://raw.githubusercontent.com/aminetaoil-wq/klusraak/main/klusraak-demo.html)
 
-> Op `github.io` slaat de demo-modus automatisch aan (mock-API in localStorage, geen backend nodig). Lokaal werkt `?demo=1` als handmatige toggle, en `?demo=0` is de escape hatch om de echte backend te gebruiken. Zie ook [`DEMO.md`](./DEMO.md).
+Klik en de complete Klusraak-app draait direct in je browser. Demo-modus staat aan, alle 9 schermen werken, mock-data is ingebakken.
 
-📦 **Standalone demo voor lokaal testen** (geen Pages, geen cache-gedoe):
-[`klusraak-demo.html`](./klusraak-demo.html) — één bestand van ~180 KB met alle CSS en JS ingebakken. Download → dubbelklik → opent in elke browser. Demo-modus staat al aan. Rebuild via `python3 scripts/build-standalone.py`.
+**Demo-accounts om in te loggen:**
+
+| Rol     | E-mail                | Wachtwoord  |
+|---------|-----------------------|-------------|
+| Klant   | `klant@klusraak.nl`   | `Demo1234!` |
+| Vakman  | `vakman@klusraak.nl`  | `Demo1234!` |
+
+<details>
+<summary>Andere manieren om de demo te openen</summary>
+
+**Andere CDN's** (als htmlpreview.github.io traag is of dichtklapt):
+- raw.githack.com — https://raw.githack.com/aminetaoil-wq/klusraak/main/klusraak-demo.html
+- statically.io — https://cdn.statically.io/gh/aminetaoil-wq/klusraak/main/klusraak-demo.html
+
+**GitHub Pages** (zelfde inhoud, andere host):
+- https://aminetaoil-wq.github.io/klusraak/
+
+**Lokaal** — download [`klusraak-demo.html`](./klusraak-demo.html) en dubbelklik. Werkt zonder internet behalve voor de Google Fonts + Lucide CDN.
+
+**Reset** alle demo-data: open DevTools → Console → `localStorage.clear()` → herlaad pagina.
+
+</details>
 
 ---
 
