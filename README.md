@@ -10,6 +10,8 @@
 
 > Op `github.io` slaat de demo-modus automatisch aan (mock-API in localStorage, geen backend nodig). Lokaal werkt `?demo=1` als handmatige toggle, en `?demo=0` is de escape hatch om de echte backend te gebruiken. Zie ook [`DEMO.md`](./DEMO.md).
 
+📐 **Voor het hele system design** (architectuur, schema, endpoints, scaling, production-readiness audit) → zie [`ARCHITECTURE.md`](./ARCHITECTURE.md).
+
 ---
 
 ## Stack
