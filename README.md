@@ -14,13 +14,13 @@
 
 ## Stack
 
-- **Frontend** — vanilla HTML/CSS/JS SPA in `frontend/public/` (geen build-step nodig). Geest typografie, Lucide icons, dark + light theme, glassmorphism, indigo/violet/cyan accenten — volgt het Klusraak Design System.
+- **Frontend** — vanilla HTML/CSS/JS SPA in `frontend/public/` (geen build-step nodig). Geest typografie, Lucide icons, dark + light theme, glassmorphism, warm oranje accent (#ff7a00) — Klusraak Design System v2.
 - **Backend** — Node 20 + Express + TypeScript + Prisma + PostgreSQL + Redis (BullMQ workers) in `backend/`.
-- **Demo-modus** — `?demo=1` activeert een localStorage-backed mock-API zodat de frontend zonder backend werkt.
+- **Demo-modus** — auto-actief op `*.github.io`; lokaal te forceren met `?demo=1` of uit te zetten met `?demo=0`. Activeert een localStorage-backed mock-API zodat de frontend zonder backend werkt.
 
 ## Schermen
 
-Home (dual-path entry: klant vs vakman) · Alle diensten (40 services in 10 groepen, met live search) · Inloggen/registreren · Dashboard · Mijn klussen / Open klussen · Nieuwe klus (3-staps stepper) · Klus-detail · Chat · Profiel.
+Home (single-CTA hero, "Hoe het werkt"-stack) · Alle diensten (40 services in 10 groepen, met live search) · Inloggen/registreren · Dashboard · Mijn klussen / Open klussen · Nieuwe klus (3-staps stepper) · Klus-detail · Chat · Profiel.
 
 ## Demo accounts
 
@@ -36,7 +36,7 @@ Home (dual-path entry: klant vs vakman) · Alle diensten (40 services in 10 groe
 ```bash
 cd frontend/public
 python3 -m http.server 5173
-# Open http://localhost:5173/?demo=1
+# Open http://localhost:5173/?demo=1   (lokaal moet je 'm aanzetten)
 ```
 
 ## Lokaal draaien (full-stack)
@@ -54,7 +54,7 @@ python3 -m http.server 5173
 
 1. **Repo instelling** — Settings → Pages → Source: *Deploy from a branch* → `gh-pages` / `(root)`
 2. **Push naar `main`** — `.github/workflows/deploy-demo-pages.yml` publiceert dan `frontend/public/` naar `gh-pages`
-3. **Site beschikbaar op** `https://<owner>.github.io/<repo>/?demo=1`
+3. **Site beschikbaar op** `https://<owner>.github.io/<repo>/` (demo-modus slaat automatisch aan)
 
 ## Aanpassen & uitbreiden
 
@@ -71,7 +71,7 @@ De demo wordt direct uit deze repo gepubliceerd, dus elke wijziging in `frontend
    - **Mock-data voor demo** → `frontend/public/js/demo/mock-data.js`
    - **Mock-API responses** → `frontend/public/js/demo/mock-api.js`
    - **Markup root** → `frontend/public/index.html`
-3. Test lokaal: `cd frontend/public && python3 -m http.server 5173` → `http://localhost:5173/?demo=1`.
+3. Test lokaal: `cd frontend/public && python3 -m http.server 5173` → `http://localhost:5173/?demo=1` (lokaal handmatig aanzetten).
 4. Open een PR → merge naar `main` → demo update zelf binnen ~1 min.
 
 **Backend uitbreiden** → `backend/src/modules/<feature>/` (routes, schemas, service per feature). Daarna `npx prisma migrate dev` als schema verandert. Zie `docs/DEPLOYMENT.md` voor productie-deploy naar Fly.io.
