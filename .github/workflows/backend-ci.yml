@@ -19,6 +19,13 @@ jobs:
       run:
         working-directory: backend
 
+    env:
+      # Dummy URLs satisfy the Prisma schema's env() lookups during
+      # `validate` and `generate`. No actual database is contacted in this
+      # job — that's the migrate-check job's responsibility.
+      DATABASE_URL: postgresql://ci:ci@localhost:5432/ci
+      DATABASE_DIRECT_URL: postgresql://ci:ci@localhost:5432/ci
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -33,14 +40,14 @@ jobs:
       - name: Install
         run: npm ci
 
+      - name: Prisma schema validate
+        run: npx prisma validate
+
       - name: Prisma generate
         run: npx prisma generate
 
       - name: TypeScript build
         run: npm run build
-
-      - name: Prisma schema validate
-        run: npx prisma validate
 
   migrate-check:
     name: Migration sanity check
@@ -66,6 +73,7 @@ jobs:
 
     env:
       DATABASE_URL: postgresql://postgres:postgres@localhost:5432/klusraak_ci
+      DATABASE_DIRECT_URL: postgresql://postgres:postgres@localhost:5432/klusraak_ci
 
     steps:
       - name: Checkout
