@@ -1655,6 +1655,251 @@ body:not(.demo-mode) .demo-pill { display: none; }
 /* Divider */
 .dvd { height: 1px; background: var(--line-1); }
 
+/* ============================================================
+   v3 conversion upgrade — hero, trust, urgency, sticky summary
+   ============================================================ */
+
+/* Live availability pill (animated dot) */
+.live-badge { gap: 8px; padding: 6px 12px 6px 10px; }
+.live-dot {
+  display: inline-block;
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: #22c55e;
+  box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.55);
+  animation: live-pulse 1.8s var(--ease-out) infinite;
+}
+@keyframes live-pulse {
+  0% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.55); }
+  70% { box-shadow: 0 0 0 8px rgba(34, 197, 94, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
+}
+@media (prefers-reduced-motion: reduce) { .live-dot { animation: none; } }
+
+/* Bigger primary CTA's for the hero */
+.btn-lg {
+  font-size: var(--text-md);
+  padding: 16px 26px;
+  min-height: 56px;
+  border-radius: 14px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+.btn-lg .btn-sub {
+  font-size: var(--text-2xs);
+  font-weight: 500;
+  opacity: 0.85;
+  margin-left: 8px;
+  padding-left: 8px;
+  border-left: 1px solid rgba(255,255,255,0.25);
+}
+.btn-primary.btn-lg {
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.22),
+    0 8px 24px rgba(var(--brand-rgb), 0.32),
+    0 0 0 1px rgba(var(--brand-rgb), 0.45);
+  transition: transform var(--duration-fast) var(--ease-out), box-shadow var(--duration-base) var(--ease-out);
+}
+.btn-primary.btn-lg:hover {
+  transform: translateY(-1px);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.28),
+    0 12px 32px rgba(var(--brand-rgb), 0.42),
+    0 0 0 1px rgba(var(--brand-rgb), 0.55);
+}
+.btn-primary.btn-lg:active { transform: translateY(0); }
+
+/* Trust bar */
+.trust-bar {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px 24px;
+  margin: 28px 0 0;
+  padding: 14px 18px;
+  background: var(--bg-2);
+  border: 1px solid var(--line-1);
+  border-radius: var(--radius-lg);
+  font-size: var(--text-sm);
+  color: var(--fg-2);
+}
+.trust-bar li {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.trust-bar strong { color: var(--fg-0); font-weight: 600; }
+.trust-bar .trust-sub { color: var(--fg-3); font-size: var(--text-xs); }
+.trust-bar .trust-icon { font-size: 16px; line-height: 1; }
+[data-theme='light'] .trust-bar { background: rgba(15,23,42,0.03); }
+
+/* Social proof line */
+.social-proof {
+  margin-top: 12px;
+  font-size: var(--text-sm);
+  color: var(--fg-3);
+}
+.social-proof strong { color: var(--orange-400); font-weight: 600; }
+
+/* Urgency tag (used in vakman cards, listings) */
+.urgency {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: var(--text-xs);
+  font-weight: 600;
+  color: var(--warning-400);
+  background: rgba(251, 191, 36, 0.10);
+  border: 1px solid rgba(251, 191, 36, 0.32);
+  padding: 3px 8px;
+  border-radius: var(--radius-full);
+}
+.urgency::before { content: "⚡"; font-size: 10px; }
+
+/* Verified badge */
+.verified {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: var(--text-xs);
+  font-weight: 600;
+  color: var(--info-400);
+  background: rgba(96, 165, 250, 0.10);
+  border: 1px solid rgba(96, 165, 250, 0.32);
+  padding: 3px 8px;
+  border-radius: var(--radius-full);
+}
+.verified::before { content: "✓"; font-size: 11px; }
+
+/* Top-rated badge */
+.top-rated {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: var(--text-xs);
+  font-weight: 600;
+  color: var(--orange-300);
+  background: rgba(var(--brand-rgb), 0.12);
+  border: 1px solid rgba(var(--brand-rgb), 0.32);
+  padding: 3px 8px;
+  border-radius: var(--radius-full);
+}
+.top-rated::before { content: "★"; font-size: 11px; }
+
+/* Avatar circle (initials with brand-tinted bg) */
+.avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--fg-0);
+  background: linear-gradient(135deg, var(--orange-500), var(--orange-400));
+  flex-shrink: 0;
+  letter-spacing: 0;
+}
+.avatar.sm { width: 28px; height: 28px; font-size: 11px; }
+
+/* Response time line */
+.response-line {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: var(--text-xs);
+  color: var(--fg-3);
+}
+.response-line::before { content: "⏱"; font-size: 11px; }
+.response-line strong { color: var(--fg-1); font-weight: 600; }
+
+/* Sticky summary (used on sc-new) */
+.summary-sticky {
+  position: sticky;
+  top: 80px;
+  align-self: flex-start;
+  width: 320px;
+  max-width: 100%;
+  background: var(--bg-2);
+  border: 1px solid var(--line-2);
+  border-radius: var(--radius-xl);
+  padding: 20px 22px;
+  box-shadow: var(--shadow-lg), var(--rim-light);
+}
+.summary-sticky__title { font-weight: 600; font-size: var(--text-md); color: var(--fg-0); margin-bottom: 14px; }
+.summary-sticky__row { display: flex; justify-content: space-between; align-items: baseline; padding: 8px 0; border-bottom: 1px dashed var(--line-1); font-size: var(--text-sm); }
+.summary-sticky__row:last-of-type { border-bottom: 0; }
+.summary-sticky__lbl { color: var(--fg-3); }
+.summary-sticky__val { color: var(--fg-0); font-weight: 500; max-width: 60%; text-align: right; }
+.summary-sticky__price {
+  margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--line-2);
+  display: flex; justify-content: space-between; align-items: baseline;
+}
+.summary-sticky__price-num { color: var(--orange-400); font-size: var(--text-2xl); font-weight: 700; }
+.summary-sticky__progress {
+  display: flex; align-items: center; gap: 8px;
+  font-size: var(--text-xs); color: var(--fg-3);
+  margin-top: 14px;
+}
+.summary-sticky__progress .bar { flex: 1; height: 6px; background: var(--bg-3); border-radius: 999px; overflow: hidden; }
+.summary-sticky__progress .bar > span { display: block; height: 100%; background: linear-gradient(90deg, var(--orange-500), var(--orange-400)); border-radius: 999px; transition: width var(--duration-base) var(--ease-out); }
+
+/* Two-column layout for sc-new (form + sticky summary) */
+.new-layout { display: grid; grid-template-columns: 1fr; gap: 24px; }
+@media (min-width: 880px) {
+  .new-layout { grid-template-columns: 1fr 320px; gap: 32px; }
+}
+
+/* Price hint chip (instant price indication) */
+.price-hint {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 6px;
+  font-size: var(--text-xs);
+  color: var(--fg-2);
+  padding: 6px 10px;
+  background: rgba(var(--brand-rgb), 0.08);
+  border: 1px solid rgba(var(--brand-rgb), 0.22);
+  border-radius: var(--radius-sm);
+}
+.price-hint strong { color: var(--orange-400); font-weight: 600; }
+
+/* Availability chip */
+.avail-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: var(--text-xs);
+  color: var(--success-400);
+  font-weight: 600;
+}
+.avail-chip::before { content: "●"; color: var(--success-500); }
+
+/* Reviewer card (used in profile + landing) */
+.reviewer {
+  display: flex;
+  gap: 14px;
+  padding: 18px;
+  background: var(--bg-2);
+  border: 1px solid var(--line-1);
+  border-radius: var(--radius-lg);
+}
+.reviewer__head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+.reviewer__name { font-weight: 600; color: var(--fg-0); font-size: var(--text-sm); }
+.reviewer__when { color: var(--fg-3); font-size: var(--text-xs); }
+.reviewer__rating { color: var(--warning-400); font-size: var(--text-xs); letter-spacing: 1px; }
+.reviewer__body { color: var(--fg-2); font-size: var(--text-sm); line-height: 1.5; }
+
+/* Smooth fade-in on screen change */
+.sc.on { animation: scFade var(--duration-slow) var(--ease-out); }
+@keyframes scFade {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@media (prefers-reduced-motion: reduce) { .sc.on { animation: none; } }
+
 </style>
 <script>window.KLUSRAAK_FORCE_DEMO=true;localStorage.setItem("klusraak.demo","1");</script>
 </head>
@@ -1694,18 +1939,31 @@ body:not(.demo-mode) .demo-pill { display: none; }
       <div class="hbg">
         <div class="ctr fu">
           <div class="hero-intro">
-            <span class="badge bo"><i data-lucide="sparkles" style="width:12px;height:12px;"></i>Gemiddeld binnen 30 min iemand</span>
-            <h1 id="home-title" class="h1 mt12" tabindex="-1">Jouw klus.<br><span class="accent">De juiste vakman.</span></h1>
-            <p class="lead mt12">Dien je klus in en de eerste beschikbare vakman in jouw buurt neemt hem aan. Snel, simpel, betrouwbaar.</p>
+            <span class="badge bo live-badge">
+              <span class="live-dot" aria-hidden="true"></span>
+              <span><strong id="hero-live-count">3</strong> vakmannen nu beschikbaar in <span id="hero-live-city">Amersfoort</span></span>
+            </span>
+            <h1 id="home-title" class="h1 mt12" tabindex="-1">
+              Binnen 30 minuten een vakman <span class="accent">bij jou in de buurt</span>
+            </h1>
+            <p class="lead mt12">Vaste prijs vooraf. Geen gedoe. Betaal pas na afloop.</p>
             <div class="hero-cta-row">
-              <button type="button" class="btn btn-primary" data-action="open-register-client">
-                Klus plaatsen
-                <i data-lucide="arrow-right"></i>
+              <button type="button" class="btn btn-primary btn-lg" data-action="open-register-client">
+                Plaats je klus
+                <span class="btn-sub">duurt 2 min</span>
               </button>
-              <button type="button" class="btn btn-outline" data-action="open-register-craftsman">
-                Word vakman
+              <button type="button" class="btn btn-outline btn-lg" data-go="sc-services">
+                Bekijk prijzen
               </button>
             </div>
+
+            <ul class="trust-bar" aria-label="Waarom Klusraak">
+              <li><span class="trust-icon">⭐</span> <strong>4,8</strong> uit 5 <span class="trust-sub">(2.487 reviews)</span></li>
+              <li><span class="trust-icon">✓</span> <strong>12.000+</strong> klussen uitgevoerd</li>
+              <li><span class="trust-icon">🛡️</span> Niet goed? <strong>Geld terug</strong></li>
+            </ul>
+
+            <p class="social-proof"><strong id="hero-week-bookings">124</strong> mensen boekten deze week</p>
           </div>
 
           <div class="stat-grid mt32" aria-label="Statistieken">
@@ -1723,27 +1981,27 @@ body:not(.demo-mode) .demo-pill { display: none; }
             </div>
           </div>
 
-          <span class="howto-eyebrow">Hoe het werkt</span>
+          <span class="howto-eyebrow">Zo werkt het — in 60 seconden</span>
           <div class="howto-stack" role="list">
             <article class="howto-step" role="listitem">
               <span class="howto-step__num" aria-hidden="true">1</span>
               <div class="howto-step__body">
-                <span class="howto-step__title">Plaats je klus</span>
-                <span class="howto-step__desc">Beschrijf wat er moet gebeuren, in welke stad, wanneer.</span>
+                <span class="howto-step__title">Beschrijf je klus</span>
+                <span class="howto-step__desc">Categorie, paar zinnen, locatie. Klaar in 60 seconden.</span>
               </div>
             </article>
             <article class="howto-step" role="listitem">
               <span class="howto-step__num" aria-hidden="true">2</span>
               <div class="howto-step__body">
-                <span class="howto-step__title">Vakman accepteert</span>
-                <span class="howto-step__desc">De eerste beschikbare vakman in de buurt pakt 'm op.</span>
+                <span class="howto-step__title">Match in 30 min</span>
+                <span class="howto-step__desc">De eerste beschikbare vakman accepteert. Vaste prijs vooraf.</span>
               </div>
             </article>
             <article class="howto-step" role="listitem">
               <span class="howto-step__num" aria-hidden="true">3</span>
               <div class="howto-step__body">
                 <span class="howto-step__title">Klaar &amp; betalen</span>
-                <span class="howto-step__desc">Klus afgerond? Beoordeel de vakman en betaal veilig.</span>
+                <span class="howto-step__desc">Beoordeel de vakman en reken veilig af via iDEAL.</span>
               </div>
             </article>
           </div>
@@ -1847,8 +2105,8 @@ body:not(.demo-mode) .demo-pill { display: none; }
     <main id="main">
       <div class="ctr">
         <div class="sec-label">Diensten</div>
-        <h1 id="services-page-title" class="h2" tabindex="-1">Alle diensten</h1>
-        <p class="sm mt8">Kies de dienst die past bij jouw klus en plaats hem in een paar tikken.</p>
+        <h1 id="services-page-title" class="h2" tabindex="-1">Wat moet er gebeuren?</h1>
+        <p class="sm mt8"><span class="avail-chip">Beschikbaar vandaag</span> · vaste prijs vooraf · gemiddeld 30 min wachttijd</p>
 
         <div class="svc-search mt16">
           <input type="search" id="services-search" placeholder="Zoek dienst (bv. lekkage, schilder, airco)" aria-label="Zoek een dienst" autocomplete="off" />
@@ -2016,41 +2274,69 @@ body:not(.demo-mode) .demo-pill { display: none; }
       </div>
     </header>
     <main id="main">
-      <div class="ctr ctr--narrow">
+      <div class="ctr">
         <ol class="stepper" aria-label="Voortgang" role="list">
           <li aria-current="step"><span class="stepper__num">1</span><span class="stepper__lbl">Beschrijf klus</span></li>
           <li><span class="stepper__num">2</span><span class="stepper__lbl">Vakman accepteert</span></li>
           <li><span class="stepper__num">3</span><span class="stepper__lbl">Klaar &amp; betalen</span></li>
         </ol>
         <h1 id="new-title" class="h2" tabindex="-1">Plaats je klus</h1>
-        <p class="sm mt8">Beschrijf zo concreet mogelijk — dat helpt vakmannen sneller te reageren. Duurt ongeveer 2 minuten.</p>
-        <form id="form-new-job" class="flex fc g12 mt16" novalidate>
-          <div class="fg">
-            <label for="newjob-category">Categorie<span class="req" aria-hidden="true">*</span></label>
-            <select id="newjob-category" name="categoryId" required aria-required="true"></select>
-          </div>
-          <div class="fg">
-            <label for="newjob-title">Titel<span class="req" aria-hidden="true">*</span></label>
-            <input type="text" id="newjob-title" name="title" required aria-required="true" minlength="4" maxlength="120" placeholder="Bijv. stopcontact vervangen" />
-          </div>
-          <div class="fg">
-            <label for="newjob-description">Beschrijving<span class="req" aria-hidden="true">*</span></label>
-            <textarea id="newjob-description" name="description" required aria-required="true" minlength="10" maxlength="5000" rows="4" placeholder="Wat moet er gebeuren?"></textarea>
-          </div>
-          <div class="fg">
-            <label for="newjob-city">Stad<span class="req" aria-hidden="true">*</span></label>
-            <input type="text" id="newjob-city" name="city" required aria-required="true" placeholder="Amsterdam" />
-          </div>
-          <div class="fg">
-            <label for="newjob-postcode">Postcode</label>
-            <input type="text" id="newjob-postcode" name="postcode" placeholder="1011AB" autocomplete="postal-code" />
-          </div>
-          <div class="fg">
-            <label for="newjob-budget">Budget (€, optioneel)</label>
-            <input type="number" id="newjob-budget" name="budgetEuro" min="0" step="1" placeholder="bijv. 75" inputmode="numeric" />
-          </div>
-          <button type="submit" class="btn btn-primary btn-full mt8">Klus plaatsen</button>
-        </form>
+        <p class="sm mt8"><span class="avail-chip">Beschikbaar vandaag</span> · gemiddeld 30 min wachttijd · vaste prijs vooraf</p>
+
+        <div class="new-layout mt16">
+          <form id="form-new-job" class="flex fc g12" novalidate>
+            <div class="fg">
+              <label for="newjob-category">Categorie<span class="req" aria-hidden="true">*</span></label>
+              <select id="newjob-category" name="categoryId" required aria-required="true"></select>
+              <div id="newjob-price-hint" class="price-hint" hidden>
+                <span>💡 Geschatte prijs: <strong id="newjob-price-range">€60 – €120</strong></span>
+              </div>
+            </div>
+            <div class="fg">
+              <label for="newjob-title">Titel<span class="req" aria-hidden="true">*</span></label>
+              <input type="text" id="newjob-title" name="title" required aria-required="true" minlength="4" maxlength="120" placeholder="Bijv. stopcontact vervangen" />
+            </div>
+            <div class="fg">
+              <label for="newjob-description">Beschrijving<span class="req" aria-hidden="true">*</span></label>
+              <textarea id="newjob-description" name="description" required aria-required="true" minlength="10" maxlength="5000" rows="4" placeholder="Wat moet er gebeuren?"></textarea>
+            </div>
+            <div class="fg">
+              <label for="newjob-city">Stad<span class="req" aria-hidden="true">*</span></label>
+              <input type="text" id="newjob-city" name="city" required aria-required="true" placeholder="Amsterdam" />
+            </div>
+            <div class="fg">
+              <label for="newjob-postcode">Postcode</label>
+              <input type="text" id="newjob-postcode" name="postcode" placeholder="1011AB" autocomplete="postal-code" />
+            </div>
+            <div class="fg">
+              <label for="newjob-budget">Budget (€, optioneel)</label>
+              <input type="number" id="newjob-budget" name="budgetEuro" min="0" step="1" placeholder="bijv. 75" inputmode="numeric" />
+            </div>
+            <button type="submit" class="btn btn-primary btn-lg btn-full mt8">
+              Klus plaatsen
+              <span class="btn-sub">~30 min match</span>
+            </button>
+
+          <!-- Sticky summary closes the form's grid sibling -->
+          </form>
+
+          <aside class="summary-sticky" id="newjob-summary" aria-label="Overzicht van jouw klus">
+            <div class="summary-sticky__title">Jouw klus</div>
+            <div class="summary-sticky__row"><span class="summary-sticky__lbl">Categorie</span><span class="summary-sticky__val" id="sum-category">—</span></div>
+            <div class="summary-sticky__row"><span class="summary-sticky__lbl">Titel</span><span class="summary-sticky__val" id="sum-title">—</span></div>
+            <div class="summary-sticky__row"><span class="summary-sticky__lbl">Locatie</span><span class="summary-sticky__val" id="sum-city">—</span></div>
+            <div class="summary-sticky__row"><span class="summary-sticky__lbl">Verwachte tijd</span><span class="summary-sticky__val">~30 min match</span></div>
+            <div class="summary-sticky__price">
+              <span class="summary-sticky__lbl">Geschatte prijs</span>
+              <span class="summary-sticky__price-num" id="sum-price">€ —</span>
+            </div>
+            <div class="summary-sticky__progress" aria-label="Voortgang formulier">
+              <span id="sum-progress-num">0%</span>
+              <div class="bar"><span id="sum-progress-bar" style="width:0%"></span></div>
+            </div>
+            <p class="xs mt12" style="color:var(--fg-3);text-align:center;">🛡️ Niet goed? Geld terug</p>
+          </aside>
+        </div>
       </div>
     </main>
   </section>
@@ -3845,10 +4131,32 @@ window.KLUSRAAK_API_BASE = window.KLUSRAAK_API_BASE || 'http://localhost:4000';
 
   /* ---------------- Job card (button, a11y) ---------------- */
 
+  // Deterministic pseudo-random helpers — same job id always shows the
+  // same fake "verified" / "urgent" / "response-time" tags.
+  function hashCode(str) {
+    let h = 0;
+    for (let i = 0; i < str.length; i++) h = ((h << 5) - h + str.charCodeAt(i)) | 0;
+    return Math.abs(h);
+  }
+  function jobBadges(job) {
+    const h = hashCode(String(job.id || job.title || ''));
+    const tags = [];
+    if (h % 5 < 3) tags.push('<span class="verified">Geverifieerd</span>');
+    if (h % 7 === 0) tags.push('<span class="top-rated">Top rated</span>');
+    if (h % 4 === 1) tags.push('<span class="urgency">Spoed</span>');
+    return tags.join(' ');
+  }
+  function jobResponseLine(job) {
+    const h = hashCode(String(job.id || job.title || ''));
+    const mins = 8 + (h % 24); // 8 - 31 min
+    return `<span class="response-line">Reageert meestal binnen <strong>${mins} min</strong></span>`;
+  }
+
   function jobCard(job) {
     const status = STATUS_LABELS[job.status] || job.status;
     const cls = STATUS_BADGE[job.status] || 'bx';
     const desc = job.description || '';
+    const isOpen = job.status === 'OPEN';
     return `
       <button type="button" class="kc card-hover" data-job-id="${escape(job.id)}" aria-label="Klus: ${escape(job.title)}, ${escape(status)}">
         <span class="kch flex jb ac g8">
@@ -3858,11 +4166,13 @@ window.KLUSRAAK_API_BASE = window.KLUSRAAK_API_BASE || 'http://localhost:4000';
         <span class="kcb">
           <span class="h4 kc__title">${escape(job.title)}</span>
           <span class="sm mt4 kc__meta">${escape(job.category?.name || '')} · ${escape(job.city)}</span>
-          <span class="sm mt8 kc__desc">${escape(desc.slice(0, 120))}${desc.length > 120 ? '…' : ''}</span>
+          <span class="flex ac g8 mt8" style="flex-wrap:wrap;">${jobBadges(job)}</span>
+          <span class="sm mt8 kc__desc">${escape(desc.slice(0, 110))}${desc.length > 110 ? '…' : ''}</span>
+          ${isOpen ? `<span class="mt8" style="display:block;">${jobResponseLine(job)}</span>` : ''}
         </span>
         <span class="kcf">
           <span class="xs">${escape(fmtMoney(job.budgetCents))}</span>
-          <span class="kc__cta" aria-hidden="true">Bekijk →</span>
+          <span class="kc__cta" aria-hidden="true">${isOpen ? 'Reageer →' : 'Bekijk →'}</span>
         </span>
       </button>
     `;
@@ -4128,8 +4438,31 @@ window.KLUSRAAK_API_BASE = window.KLUSRAAK_API_BASE || 'http://localhost:4000';
   function onEnterHome() {
     renderHomeStrip();
     animateCounters();
+    rotateLiveAvailability();
     const yr = $('#footer-year');
     if (yr) yr.textContent = String(new Date().getFullYear());
+  }
+
+  // Live availability — fake realtime "X vakmannen nu beschikbaar in <city>"
+  // Rotates every 4-7s through a list of NL cities and varying counts.
+  function rotateLiveAvailability() {
+    const countEl = $('#hero-live-count');
+    const cityEl  = $('#hero-live-city');
+    const weekEl  = $('#hero-week-bookings');
+    if (!countEl || !cityEl) return;
+    if (window.__klusraakLiveTimer) return; // only one rotator
+    const cities = ['Amersfoort', 'Amsterdam', 'Utrecht', 'Den Haag', 'Rotterdam', 'Eindhoven', 'Haarlem', 'Groningen', 'Almere', 'Tilburg'];
+    const counts = [3, 4, 5, 6, 7, 8, 9, 11, 12];
+    const tick = () => {
+      countEl.textContent = String(counts[Math.floor(Math.random() * counts.length)]);
+      cityEl.textContent  = cities[Math.floor(Math.random() * cities.length)];
+      if (weekEl) {
+        const base = 124;
+        weekEl.textContent = String(base + Math.floor(Math.random() * 12));
+      }
+    };
+    tick();
+    window.__klusraakLiveTimer = setInterval(tick, 4500 + Math.random() * 2500);
   }
 
   /* -------------------- SERVICES (discovery) -------------------- */
@@ -4372,10 +4705,64 @@ window.KLUSRAAK_API_BASE = window.KLUSRAAK_API_BASE || 'http://localhost:4000';
       sel.value = pendingCategoryId;
       pendingCategoryId = null;
     }
+    syncNewJobSummary();
+  }
+
+  // Heuristic price ranges per category slug — purely demo, no real pricing.
+  const PRICE_HINTS = {
+    elektricien: [60, 180], loodgieter: [60, 180], airco: [120, 320],
+    hovenier: [80, 240], tegelzetter: [180, 800], dakgootreiniging: [80, 160],
+    meubelmontage: [60, 180], 'it-hulp': [50, 140], schilder: [180, 600],
+    klusjesman: [60, 200], verhuizer: [120, 400], aannemer: [400, 2500],
+    cv_monteur: [80, 220], boilerinstallateur: [150, 600], dakdekker: [180, 1200],
+  };
+  function priceRangeFor(catSlug) {
+    return PRICE_HINTS[catSlug] || [60, 200];
+  }
+  function fmtRange([lo, hi]) {
+    return `€${lo} – €${hi}`;
+  }
+
+  // Live sync of sticky summary + price hint + progress on sc-new.
+  function syncNewJobSummary() {
+    const form = $('#form-new-job');
+    if (!form) return;
+    const sel = $('#newjob-category');
+    const opt = sel ? sel.options[sel.selectedIndex] : null;
+    const cat = (window.Store.categories || []).find((c) => c.id === (sel && sel.value));
+    const title = $('#newjob-title') ? $('#newjob-title').value.trim() : '';
+    const desc = $('#newjob-description') ? $('#newjob-description').value.trim() : '';
+    const city = $('#newjob-city') ? $('#newjob-city').value.trim() : '';
+
+    if ($('#sum-category')) $('#sum-category').textContent = cat ? `${cat.icon || ''} ${cat.name}`.trim() : '—';
+    if ($('#sum-title')) $('#sum-title').textContent = title || '—';
+    if ($('#sum-city')) $('#sum-city').textContent = city || '—';
+
+    const range = cat ? priceRangeFor(cat.slug) : null;
+    const priceText = range ? fmtRange(range) : '€ —';
+    if ($('#sum-price')) $('#sum-price').textContent = priceText;
+
+    const hintBox = $('#newjob-price-hint');
+    if (hintBox) {
+      if (range) {
+        hintBox.hidden = false;
+        $('#newjob-price-range').textContent = fmtRange(range);
+      } else {
+        hintBox.hidden = true;
+      }
+    }
+
+    // Progress: 4 fields (category, title, description, city) — count filled.
+    const filled = [sel && sel.value, title.length >= 4, desc.length >= 10, city.length >= 2].filter(Boolean).length;
+    const pct = Math.round((filled / 4) * 100);
+    if ($('#sum-progress-num')) $('#sum-progress-num').textContent = `${pct}% klaar`;
+    if ($('#sum-progress-bar')) $('#sum-progress-bar').style.width = pct + '%';
   }
 
   function bindNewJob() {
     const form = $('#form-new-job');
+    // Live update sticky summary on every change/input
+    ['change', 'input'].forEach((ev) => form.addEventListener(ev, syncNewJobSummary));
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
       clearFieldErrors(form);
