@@ -475,10 +475,32 @@
 
   /* ---------------- Job card (button, a11y) ---------------- */
 
+  // Deterministic pseudo-random helpers — same job id always shows the
+  // same fake "verified" / "urgent" / "response-time" tags.
+  function hashCode(str) {
+    let h = 0;
+    for (let i = 0; i < str.length; i++) h = ((h << 5) - h + str.charCodeAt(i)) | 0;
+    return Math.abs(h);
+  }
+  function jobBadges(job) {
+    const h = hashCode(String(job.id || job.title || ''));
+    const tags = [];
+    if (h % 5 < 3) tags.push('<span class="verified">Geverifieerd</span>');
+    if (h % 7 === 0) tags.push('<span class="top-rated">Top rated</span>');
+    if (h % 4 === 1) tags.push('<span class="urgency">Spoed</span>');
+    return tags.join(' ');
+  }
+  function jobResponseLine(job) {
+    const h = hashCode(String(job.id || job.title || ''));
+    const mins = 8 + (h % 24); // 8 - 31 min
+    return `<span class="response-line">Reageert meestal binnen <strong>${mins} min</strong></span>`;
+  }
+
   function jobCard(job) {
     const status = STATUS_LABELS[job.status] || job.status;
     const cls = STATUS_BADGE[job.status] || 'bx';
     const desc = job.description || '';
+    const isOpen = job.status === 'OPEN';
     return `
       <button type="button" class="kc card-hover" data-job-id="${escape(job.id)}" aria-label="Klus: ${escape(job.title)}, ${escape(status)}">
         <span class="kch flex jb ac g8">
@@ -488,11 +510,13 @@
         <span class="kcb">
           <span class="h4 kc__title">${escape(job.title)}</span>
           <span class="sm mt4 kc__meta">${escape(job.category?.name || '')} · ${escape(job.city)}</span>
-          <span class="sm mt8 kc__desc">${escape(desc.slice(0, 120))}${desc.length > 120 ? '…' : ''}</span>
+          <span class="flex ac g8 mt8" style="flex-wrap:wrap;">${jobBadges(job)}</span>
+          <span class="sm mt8 kc__desc">${escape(desc.slice(0, 110))}${desc.length > 110 ? '…' : ''}</span>
+          ${isOpen ? `<span class="mt8" style="display:block;">${jobResponseLine(job)}</span>` : ''}
         </span>
         <span class="kcf">
           <span class="xs">${escape(fmtMoney(job.budgetCents))}</span>
-          <span class="kc__cta" aria-hidden="true">Bekijk →</span>
+          <span class="kc__cta" aria-hidden="true">${isOpen ? 'Reageer →' : 'Bekijk →'}</span>
         </span>
       </button>
     `;

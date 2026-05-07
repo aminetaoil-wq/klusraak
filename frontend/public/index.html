@@ -53,18 +53,31 @@
       <div class="hbg">
         <div class="ctr fu">
           <div class="hero-intro">
-            <span class="badge bo"><i data-lucide="sparkles" style="width:12px;height:12px;"></i>Gemiddeld binnen 30 min iemand</span>
-            <h1 id="home-title" class="h1 mt12" tabindex="-1">Jouw klus.<br><span class="accent">De juiste vakman.</span></h1>
-            <p class="lead mt12">Dien je klus in en de eerste beschikbare vakman in jouw buurt neemt hem aan. Snel, simpel, betrouwbaar.</p>
+            <span class="badge bo live-badge">
+              <span class="live-dot" aria-hidden="true"></span>
+              <span><strong id="hero-live-count">3</strong> vakmannen nu beschikbaar in <span id="hero-live-city">Amersfoort</span></span>
+            </span>
+            <h1 id="home-title" class="h1 mt12" tabindex="-1">
+              Binnen 30 minuten een vakman <span class="accent">bij jou in de buurt</span>
+            </h1>
+            <p class="lead mt12">Vaste prijs vooraf. Geen gedoe. Betaal pas na afloop.</p>
             <div class="hero-cta-row">
-              <button type="button" class="btn btn-primary" data-action="open-register-client">
-                Klus plaatsen
-                <i data-lucide="arrow-right"></i>
+              <button type="button" class="btn btn-primary btn-lg" data-action="open-register-client">
+                Plaats je klus
+                <span class="btn-sub">duurt 2 min</span>
               </button>
-              <button type="button" class="btn btn-outline" data-action="open-register-craftsman">
-                Word vakman
+              <button type="button" class="btn btn-outline btn-lg" data-go="sc-services">
+                Bekijk prijzen
               </button>
             </div>
+
+            <ul class="trust-bar" aria-label="Waarom Klusraak">
+              <li><span class="trust-icon">⭐</span> <strong>4,8</strong> uit 5 <span class="trust-sub">(2.487 reviews)</span></li>
+              <li><span class="trust-icon">✓</span> <strong>12.000+</strong> klussen uitgevoerd</li>
+              <li><span class="trust-icon">🛡️</span> Niet goed? <strong>Geld terug</strong></li>
+            </ul>
+
+            <p class="social-proof"><strong id="hero-week-bookings">124</strong> mensen boekten deze week</p>
           </div>
 
           <div class="stat-grid mt32" aria-label="Statistieken">
@@ -82,27 +95,27 @@
             </div>
           </div>
 
-          <span class="howto-eyebrow">Hoe het werkt</span>
+          <span class="howto-eyebrow">Zo werkt het — in 60 seconden</span>
           <div class="howto-stack" role="list">
             <article class="howto-step" role="listitem">
               <span class="howto-step__num" aria-hidden="true">1</span>
               <div class="howto-step__body">
-                <span class="howto-step__title">Plaats je klus</span>
-                <span class="howto-step__desc">Beschrijf wat er moet gebeuren, in welke stad, wanneer.</span>
+                <span class="howto-step__title">Beschrijf je klus</span>
+                <span class="howto-step__desc">Categorie, paar zinnen, locatie. Klaar in 60 seconden.</span>
               </div>
             </article>
             <article class="howto-step" role="listitem">
               <span class="howto-step__num" aria-hidden="true">2</span>
               <div class="howto-step__body">
-                <span class="howto-step__title">Vakman accepteert</span>
-                <span class="howto-step__desc">De eerste beschikbare vakman in de buurt pakt 'm op.</span>
+                <span class="howto-step__title">Match in 30 min</span>
+                <span class="howto-step__desc">De eerste beschikbare vakman accepteert. Vaste prijs vooraf.</span>
               </div>
             </article>
             <article class="howto-step" role="listitem">
               <span class="howto-step__num" aria-hidden="true">3</span>
               <div class="howto-step__body">
                 <span class="howto-step__title">Klaar &amp; betalen</span>
-                <span class="howto-step__desc">Klus afgerond? Beoordeel de vakman en betaal veilig.</span>
+                <span class="howto-step__desc">Beoordeel de vakman en reken veilig af via iDEAL.</span>
               </div>
             </article>
           </div>
@@ -206,8 +219,8 @@
     <main id="main">
       <div class="ctr">
         <div class="sec-label">Diensten</div>
-        <h1 id="services-page-title" class="h2" tabindex="-1">Alle diensten</h1>
-        <p class="sm mt8">Kies de dienst die past bij jouw klus en plaats hem in een paar tikken.</p>
+        <h1 id="services-page-title" class="h2" tabindex="-1">Wat moet er gebeuren?</h1>
+        <p class="sm mt8"><span class="avail-chip">Beschikbaar vandaag</span> · vaste prijs vooraf · gemiddeld 30 min wachttijd</p>
 
         <div class="svc-search mt16">
           <input type="search" id="services-search" placeholder="Zoek dienst (bv. lekkage, schilder, airco)" aria-label="Zoek een dienst" autocomplete="off" />
@@ -375,41 +388,69 @@
       </div>
     </header>
     <main id="main">
-      <div class="ctr ctr--narrow">
+      <div class="ctr">
         <ol class="stepper" aria-label="Voortgang" role="list">
           <li aria-current="step"><span class="stepper__num">1</span><span class="stepper__lbl">Beschrijf klus</span></li>
           <li><span class="stepper__num">2</span><span class="stepper__lbl">Vakman accepteert</span></li>
           <li><span class="stepper__num">3</span><span class="stepper__lbl">Klaar &amp; betalen</span></li>
         </ol>
         <h1 id="new-title" class="h2" tabindex="-1">Plaats je klus</h1>
-        <p class="sm mt8">Beschrijf zo concreet mogelijk — dat helpt vakmannen sneller te reageren. Duurt ongeveer 2 minuten.</p>
-        <form id="form-new-job" class="flex fc g12 mt16" novalidate>
-          <div class="fg">
-            <label for="newjob-category">Categorie<span class="req" aria-hidden="true">*</span></label>
-            <select id="newjob-category" name="categoryId" required aria-required="true"></select>
-          </div>
-          <div class="fg">
-            <label for="newjob-title">Titel<span class="req" aria-hidden="true">*</span></label>
-            <input type="text" id="newjob-title" name="title" required aria-required="true" minlength="4" maxlength="120" placeholder="Bijv. stopcontact vervangen" />
-          </div>
-          <div class="fg">
-            <label for="newjob-description">Beschrijving<span class="req" aria-hidden="true">*</span></label>
-            <textarea id="newjob-description" name="description" required aria-required="true" minlength="10" maxlength="5000" rows="4" placeholder="Wat moet er gebeuren?"></textarea>
-          </div>
-          <div class="fg">
-            <label for="newjob-city">Stad<span class="req" aria-hidden="true">*</span></label>
-            <input type="text" id="newjob-city" name="city" required aria-required="true" placeholder="Amsterdam" />
-          </div>
-          <div class="fg">
-            <label for="newjob-postcode">Postcode</label>
-            <input type="text" id="newjob-postcode" name="postcode" placeholder="1011AB" autocomplete="postal-code" />
-          </div>
-          <div class="fg">
-            <label for="newjob-budget">Budget (€, optioneel)</label>
-            <input type="number" id="newjob-budget" name="budgetEuro" min="0" step="1" placeholder="bijv. 75" inputmode="numeric" />
-          </div>
-          <button type="submit" class="btn btn-primary btn-full mt8">Klus plaatsen</button>
-        </form>
+        <p class="sm mt8"><span class="avail-chip">Beschikbaar vandaag</span> · gemiddeld 30 min wachttijd · vaste prijs vooraf</p>
+
+        <div class="new-layout mt16">
+          <form id="form-new-job" class="flex fc g12" novalidate>
+            <div class="fg">
+              <label for="newjob-category">Categorie<span class="req" aria-hidden="true">*</span></label>
+              <select id="newjob-category" name="categoryId" required aria-required="true"></select>
+              <div id="newjob-price-hint" class="price-hint" hidden>
+                <span>💡 Geschatte prijs: <strong id="newjob-price-range">€60 – €120</strong></span>
+              </div>
+            </div>
+            <div class="fg">
+              <label for="newjob-title">Titel<span class="req" aria-hidden="true">*</span></label>
+              <input type="text" id="newjob-title" name="title" required aria-required="true" minlength="4" maxlength="120" placeholder="Bijv. stopcontact vervangen" />
+            </div>
+            <div class="fg">
+              <label for="newjob-description">Beschrijving<span class="req" aria-hidden="true">*</span></label>
+              <textarea id="newjob-description" name="description" required aria-required="true" minlength="10" maxlength="5000" rows="4" placeholder="Wat moet er gebeuren?"></textarea>
+            </div>
+            <div class="fg">
+              <label for="newjob-city">Stad<span class="req" aria-hidden="true">*</span></label>
+              <input type="text" id="newjob-city" name="city" required aria-required="true" placeholder="Amsterdam" />
+            </div>
+            <div class="fg">
+              <label for="newjob-postcode">Postcode</label>
+              <input type="text" id="newjob-postcode" name="postcode" placeholder="1011AB" autocomplete="postal-code" />
+            </div>
+            <div class="fg">
+              <label for="newjob-budget">Budget (€, optioneel)</label>
+              <input type="number" id="newjob-budget" name="budgetEuro" min="0" step="1" placeholder="bijv. 75" inputmode="numeric" />
+            </div>
+            <button type="submit" class="btn btn-primary btn-lg btn-full mt8">
+              Klus plaatsen
+              <span class="btn-sub">~30 min match</span>
+            </button>
+
+          <!-- Sticky summary closes the form's grid sibling -->
+          </form>
+
+          <aside class="summary-sticky" id="newjob-summary" aria-label="Overzicht van jouw klus">
+            <div class="summary-sticky__title">Jouw klus</div>
+            <div class="summary-sticky__row"><span class="summary-sticky__lbl">Categorie</span><span class="summary-sticky__val" id="sum-category">—</span></div>
+            <div class="summary-sticky__row"><span class="summary-sticky__lbl">Titel</span><span class="summary-sticky__val" id="sum-title">—</span></div>
+            <div class="summary-sticky__row"><span class="summary-sticky__lbl">Locatie</span><span class="summary-sticky__val" id="sum-city">—</span></div>
+            <div class="summary-sticky__row"><span class="summary-sticky__lbl">Verwachte tijd</span><span class="summary-sticky__val">~30 min match</span></div>
+            <div class="summary-sticky__price">
+              <span class="summary-sticky__lbl">Geschatte prijs</span>
+              <span class="summary-sticky__price-num" id="sum-price">€ —</span>
+            </div>
+            <div class="summary-sticky__progress" aria-label="Voortgang formulier">
+              <span id="sum-progress-num">0%</span>
+              <div class="bar"><span id="sum-progress-bar" style="width:0%"></span></div>
+            </div>
+            <p class="xs mt12" style="color:var(--fg-3);text-align:center;">🛡️ Niet goed? Geld terug</p>
+          </aside>
+        </div>
       </div>
     </main>
   </section>

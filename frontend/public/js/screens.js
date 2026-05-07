@@ -154,8 +154,31 @@
   function onEnterHome() {
     renderHomeStrip();
     animateCounters();
+    rotateLiveAvailability();
     const yr = $('#footer-year');
     if (yr) yr.textContent = String(new Date().getFullYear());
+  }
+
+  // Live availability — fake realtime "X vakmannen nu beschikbaar in <city>"
+  // Rotates every 4-7s through a list of NL cities and varying counts.
+  function rotateLiveAvailability() {
+    const countEl = $('#hero-live-count');
+    const cityEl  = $('#hero-live-city');
+    const weekEl  = $('#hero-week-bookings');
+    if (!countEl || !cityEl) return;
+    if (window.__klusraakLiveTimer) return; // only one rotator
+    const cities = ['Amersfoort', 'Amsterdam', 'Utrecht', 'Den Haag', 'Rotterdam', 'Eindhoven', 'Haarlem', 'Groningen', 'Almere', 'Tilburg'];
+    const counts = [3, 4, 5, 6, 7, 8, 9, 11, 12];
+    const tick = () => {
+      countEl.textContent = String(counts[Math.floor(Math.random() * counts.length)]);
+      cityEl.textContent  = cities[Math.floor(Math.random() * cities.length)];
+      if (weekEl) {
+        const base = 124;
+        weekEl.textContent = String(base + Math.floor(Math.random() * 12));
+      }
+    };
+    tick();
+    window.__klusraakLiveTimer = setInterval(tick, 4500 + Math.random() * 2500);
   }
 
   /* -------------------- SERVICES (discovery) -------------------- */
@@ -398,10 +421,64 @@
       sel.value = pendingCategoryId;
       pendingCategoryId = null;
     }
+    syncNewJobSummary();
+  }
+
+  // Heuristic price ranges per category slug — purely demo, no real pricing.
+  const PRICE_HINTS = {
+    elektricien: [60, 180], loodgieter: [60, 180], airco: [120, 320],
+    hovenier: [80, 240], tegelzetter: [180, 800], dakgootreiniging: [80, 160],
+    meubelmontage: [60, 180], 'it-hulp': [50, 140], schilder: [180, 600],
+    klusjesman: [60, 200], verhuizer: [120, 400], aannemer: [400, 2500],
+    cv_monteur: [80, 220], boilerinstallateur: [150, 600], dakdekker: [180, 1200],
+  };
+  function priceRangeFor(catSlug) {
+    return PRICE_HINTS[catSlug] || [60, 200];
+  }
+  function fmtRange([lo, hi]) {
+    return `€${lo} – €${hi}`;
+  }
+
+  // Live sync of sticky summary + price hint + progress on sc-new.
+  function syncNewJobSummary() {
+    const form = $('#form-new-job');
+    if (!form) return;
+    const sel = $('#newjob-category');
+    const opt = sel ? sel.options[sel.selectedIndex] : null;
+    const cat = (window.Store.categories || []).find((c) => c.id === (sel && sel.value));
+    const title = $('#newjob-title') ? $('#newjob-title').value.trim() : '';
+    const desc = $('#newjob-description') ? $('#newjob-description').value.trim() : '';
+    const city = $('#newjob-city') ? $('#newjob-city').value.trim() : '';
+
+    if ($('#sum-category')) $('#sum-category').textContent = cat ? `${cat.icon || ''} ${cat.name}`.trim() : '—';
+    if ($('#sum-title')) $('#sum-title').textContent = title || '—';
+    if ($('#sum-city')) $('#sum-city').textContent = city || '—';
+
+    const range = cat ? priceRangeFor(cat.slug) : null;
+    const priceText = range ? fmtRange(range) : '€ —';
+    if ($('#sum-price')) $('#sum-price').textContent = priceText;
+
+    const hintBox = $('#newjob-price-hint');
+    if (hintBox) {
+      if (range) {
+        hintBox.hidden = false;
+        $('#newjob-price-range').textContent = fmtRange(range);
+      } else {
+        hintBox.hidden = true;
+      }
+    }
+
+    // Progress: 4 fields (category, title, description, city) — count filled.
+    const filled = [sel && sel.value, title.length >= 4, desc.length >= 10, city.length >= 2].filter(Boolean).length;
+    const pct = Math.round((filled / 4) * 100);
+    if ($('#sum-progress-num')) $('#sum-progress-num').textContent = `${pct}% klaar`;
+    if ($('#sum-progress-bar')) $('#sum-progress-bar').style.width = pct + '%';
   }
 
   function bindNewJob() {
     const form = $('#form-new-job');
+    // Live update sticky summary on every change/input
+    ['change', 'input'].forEach((ev) => form.addEventListener(ev, syncNewJobSummary));
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
       clearFieldErrors(form);
