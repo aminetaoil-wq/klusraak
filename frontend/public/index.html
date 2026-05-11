@@ -30,55 +30,54 @@
   <!-- ============================================================
        HOME (public landing)
        ============================================================ -->
-  <section id="sc-home" class="sc on" aria-labelledby="home-title">
-    <header class="app-header">
-      <div class="app-header__inner">
-        <button type="button" class="logo" data-go="sc-home" aria-label="Klusraak — naar home">
-          <span class="logo-word">Klus<span class="accent-r">R</span>aak</span>
-        </button>
-        <nav class="nav-links" aria-label="Hoofdnavigatie">
-          <button type="button" class="nav-link" data-go="sc-services">Diensten</button>
-          <button type="button" class="nav-link" data-scroll-to="#home-faq">Veelgestelde vragen</button>
-          <button type="button" class="nav-link" data-action="open-register-craftsman">Word vakman</button>
-        </nav>
-        <div class="nav-right">
-          <span class="demo-pill" aria-hidden="true">Demo</span>
-          <button type="button" class="theme-toggle" data-action="toggle-theme" aria-label="Wissel naar licht thema" aria-pressed="false"><i data-lucide="moon"></i></button>
-          <button type="button" class="nav-login-link" data-action="open-login">Inloggen <i data-lucide="arrow-right"></i></button>
-        </div>
+  <section id="sc-home" class="sc on cinematic" aria-labelledby="home-title">
+    <!-- Fullscreen looping background video (positioned absolute via .hero-video-bg) -->
+    <video class="hero-video-bg" autoplay loop muted playsinline preload="auto" poster="data:image/svg+xml;utf8,%3Csvg xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2016%209%22%3E%3Crect%20width%3D%2216%22%20height%3D%229%22%20fill%3D%22%23002b4a%22%2F%3E%3C%2Fsvg%3E">
+      <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260314_131748_f2ca2a28-fed7-44c8-b9a9-bd9acdd5ec31.mp4" type="video/mp4" />
+    </video>
+    <div class="hero-video-tint" aria-hidden="true"></div>
+
+    <header class="cinematic-nav" role="banner">
+      <button type="button" class="logo" data-go="sc-home" aria-label="Klusraak — naar home">
+        <span class="logo-word">Klus<sup class="text-xs" style="color:var(--orange-400);font-size:0.55em;vertical-align:super;">R</sup>aak</span>
+      </button>
+      <nav class="nav-links" aria-label="Hoofdnavigatie">
+        <button type="button" class="nav-link" aria-current="page">Home</button>
+        <button type="button" class="nav-link" data-go="sc-services">Diensten</button>
+        <button type="button" class="nav-link" data-scroll-to="#home-faq">Veelgestelde vragen</button>
+        <button type="button" class="nav-link" data-action="open-register-craftsman">Word vakman</button>
+      </nav>
+      <div class="nav-right">
+        <span class="demo-pill" aria-hidden="true">Demo</span>
+        <button type="button" class="liquid-glass pill" data-action="open-login">Inloggen</button>
       </div>
     </header>
 
-    <main id="main">
-      <div class="hbg">
-        <div class="ctr fu">
-          <div class="hero-intro">
-            <span class="badge bo live-badge">
-              <span class="live-dot" aria-hidden="true"></span>
-              <span><strong id="hero-live-count">3</strong> vakmannen nu beschikbaar in <span id="hero-live-city">Amersfoort</span></span>
-            </span>
-            <h1 id="home-title" class="h1 mt12" tabindex="-1">
-              Binnen 30 minuten een vakman <span class="accent">bij jou in de buurt</span>
-            </h1>
-            <p class="lead mt12">Vaste prijs vooraf. Geen gedoe. Betaal pas na afloop.</p>
-            <div class="hero-cta-row">
-              <button type="button" class="btn btn-primary btn-lg" data-action="open-register-client">
-                Plaats je klus
-                <span class="btn-sub">duurt 2 min</span>
-              </button>
-              <button type="button" class="btn btn-outline btn-lg" data-go="sc-services">
-                Bekijk prijzen
-              </button>
-            </div>
+    <main id="main" class="cinematic-hero">
+      <span class="badge live-badge animate-fade-rise">
+        <span class="live-dot" aria-hidden="true"></span>
+        <span><strong id="hero-live-count">3</strong> vakmannen nu beschikbaar in <span id="hero-live-city">Amersfoort</span></span>
+      </span>
+      <h1 id="home-title" class="display-h1 animate-fade-rise" tabindex="-1">
+        Binnen 30 minuten <em>een vakman bij jou aan de deur.</em>
+      </h1>
+      <p class="lead animate-fade-rise-delay">
+        Vaste prijs vooraf. Geen gedoe. Betaal pas na afloop. Voor klussen, onderhoud en reparaties — door geverifieerde vakmannen uit jouw buurt.
+      </p>
+      <div class="hero-cta-row animate-fade-rise-delay-2">
+        <button type="button" class="liquid-glass pill lg" data-action="open-register-client">Plaats je klus →</button>
+        <button type="button" class="liquid-glass pill lg" data-go="sc-services" style="background:rgba(255,255,255,0.02);">Bekijk prijzen</button>
+      </div>
+    </main>
 
-            <ul class="trust-bar" aria-label="Waarom Klusraak">
-              <li><span class="trust-icon">⭐</span> <strong>4,8</strong> uit 5 <span class="trust-sub">(2.487 reviews)</span></li>
-              <li><span class="trust-icon">✓</span> <strong>12.000+</strong> klussen uitgevoerd</li>
-              <li><span class="trust-icon">🛡️</span> Niet goed? <strong>Geld terug</strong></li>
-            </ul>
-
-            <p class="social-proof"><strong id="hero-week-bookings">124</strong> mensen boekten deze week</p>
-          </div>
+    <div class="cinematic-rest">
+      <div class="ctr">
+        <ul class="trust-bar" aria-label="Waarom Klusraak">
+          <li><span class="trust-icon">⭐</span> <strong>4,8</strong> uit 5 <span class="trust-sub">(2.487 reviews)</span></li>
+          <li><span class="trust-icon">✓</span> <strong>12.000+</strong> klussen uitgevoerd</li>
+          <li><span class="trust-icon">🛡️</span> Niet goed? <strong>Geld terug</strong></li>
+        </ul>
+        <p class="social-proof"><strong id="hero-week-bookings">124</strong> mensen boekten deze week</p>
 
           <div class="stat-grid mt32" aria-label="Statistieken">
             <div class="stat-box">
@@ -119,7 +118,6 @@
               </div>
             </article>
           </div>
-        </div>
       </div>
 
       <!-- Service strip -->
@@ -161,7 +159,7 @@
           </details>
         </div>
       </section>
-    </main>
+    </div>
 
     <footer class="app-footer" aria-label="Voettekst">
       <div class="footer-grid">
