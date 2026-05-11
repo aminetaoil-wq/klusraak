@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 64" fill="none">
+  <defs>
+    <linearGradient id="kg" x1="8" y1="8" x2="56" y2="56" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#6b75ff"></stop>
+      <stop offset="50%" stop-color="#8b5cf6"></stop>
+      <stop offset="100%" stop-color="#38d4ff"></stop>
+    </linearGradient>
+  </defs>
+  <rect x="2" y="2" width="60" height="60" rx="16" fill="#0c0e14" stroke="url(#kg)" stroke-width="1.5"></rect>
+  <path d="M19 16 L19 48 M19 32 L34 16 M19 32 L34 48" stroke="url(#kg)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path>
+  <circle cx="44" cy="32" r="2.5" fill="#38d4ff"></circle>
+  <text x="78" y="42" font-family="Geist, system-ui, sans-serif" font-size="26" font-weight="500" letter-spacing="-0.02em" fill="#ffffff">klusraak</text>
+</svg>
